@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { SERVICES } from '../constants';
-import { ArrowRight, Search, X, ExternalLink } from 'lucide-react';
+import { ArrowRight, Search, X, ExternalLink, Filter } from 'lucide-react';
 import { Service } from '../types';
 
 interface ServicesGridProps {
@@ -9,11 +9,21 @@ interface ServicesGridProps {
 
 const ServicesGrid: React.FC<ServicesGridProps> = ({ onServiceSelect }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const filteredServices = SERVICES.filter(service => 
-    service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    service.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Extract unique categories
+  const categories = useMemo(() => {
+    const cats = Array.from(new Set(SERVICES.map(s => s.category || 'Other')));
+    return ['All', ...cats.sort()];
+  }, []);
+
+  const filteredServices = SERVICES.filter(service => {
+    const matchesSearch = service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          service.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'All' || service.category === selectedCategory;
+    
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <section id="services" className="py-20 bg-slate-50">
@@ -27,12 +37,31 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({ onServiceSelect }) => {
           </p>
         </div>
 
+        {/* Category Filters */}
+        <div className="max-w-4xl mx-auto mb-8">
+          <div className="flex flex-wrap justify-center gap-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-4 py-2 rounded-full text-sm font-bold transition-all border ${
+                  selectedCategory === cat
+                    ? 'bg-brand-blue text-white border-brand-blue shadow-md'
+                    : 'bg-white text-slate-500 border-slate-200 hover:border-brand-orange hover:text-brand-orange'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Search Bar */}
         <div className="max-w-md mx-auto mb-12 relative">
           <div className="relative">
             <input 
               type="text" 
-              placeholder="Search for a service..."
+              placeholder={`Search in ${selectedCategory === 'All' ? 'all services' : selectedCategory}...`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-12 pr-10 py-3 rounded-full border border-slate-200 shadow-sm focus:ring-2 focus:ring-brand-orange focus:border-brand-orange outline-none transition-all text-brand-blue"
@@ -51,7 +80,7 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({ onServiceSelect }) => {
         </div>
 
         {filteredServices.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in-up">
             {filteredServices.map((service) => (
               <div 
                 key={service.id} 
@@ -104,7 +133,18 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({ onServiceSelect }) => {
               <Search className="w-8 h-8 text-slate-400" />
             </div>
             <h3 className="text-lg font-medium text-brand-blue mb-1">No services found</h3>
-            <p className="text-slate-500">Try adjusting your search terms.</p>
+            <p className="text-slate-500">
+              No services found for "{searchTerm}" in {selectedCategory}.
+            </p>
+            <button 
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedCategory('All');
+              }}
+              className="mt-4 text-brand-orange font-bold hover:underline"
+            >
+              Clear Filters
+            </button>
           </div>
         )}
       </div>
