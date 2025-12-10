@@ -42,15 +42,15 @@ const ContactSection: React.FC = () => {
                </div>
 
                {/* Embed Placeholder */}
-               <div className="w-full h-64 bg-slate-800 rounded-xl overflow-hidden relative group">
+               <div className="w-full h-64 bg-slate-800 rounded-xl overflow-hidden relative group shadow-lg border border-white/10">
                  <iframe 
-                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.467456722384!2d76.6508!3d28.6258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d9d43e2702755%3A0x6b3b55502758169!2sJhajjar%2C%20Haryana!5e0!3m2!1sen!2sin!4v1697529000000!5m2!1sen!2sin" 
+                   src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d259.69409188821277!2d76.64889731970239!3d28.603464772824115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1765350158870!5m2!1sen!2sin" 
                    width="100%" 
                    height="100%" 
                    style={{border:0}} 
                    loading="lazy" 
                    referrerPolicy="no-referrer-when-downgrade"
-                   className="opacity-70 group-hover:opacity-100 transition-opacity"
+                   className="opacity-80 group-hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
                    title="Jhajjar Map"
                  ></iframe>
                  <div className="absolute bottom-4 right-4 bg-white text-brand-blue text-xs font-bold px-3 py-1 rounded shadow-lg pointer-events-none">
