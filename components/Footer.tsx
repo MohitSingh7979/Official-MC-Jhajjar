@@ -48,11 +48,11 @@ const Footer: React.FC = () => {
             <AccordionHeader title="Quick Links" id="quick-links" />
             <div className={`md:block ${openSection === 'quick-links' ? 'block mb-6' : 'hidden'}`}>
               <ul className="space-y-3">
-                <li><a href="#" className="hover:text-brand-orange transition-colors">Pay Property Tax</a></li>
-                <li><a href="#" className="hover:text-brand-orange transition-colors">Birth/Death Certificate</a></li>
-                <li><a href="#" className="hover:text-brand-orange transition-colors">Trade License</a></li>
-                <li><a href="#" className="hover:text-brand-orange transition-colors">Online Grievance</a></li>
-                <li><a href="#" className="hover:text-brand-orange transition-colors">Tenders & Auctions</a></li>
+                <li><a href="https://property.ulbharyana.gov.in/" target="_blank" rel="noopener noreferrer" className="hover:text-brand-orange transition-colors">Pay Property Tax</a></li>
+                <li><a href="https://crsorgi.gov.in/web/index.php/auth/login" target="_blank" rel="noopener noreferrer" className="hover:text-brand-orange transition-colors">Birth/Death Certificate</a></li>
+                <li><a href="https://online.ulbharyana.gov.in/" target="_blank" rel="noopener noreferrer" className="hover:text-brand-orange transition-colors">Trade License</a></li>
+                <li><a href="https://grs.ulbharyana.gov.in/" target="_blank" rel="noopener noreferrer" className="hover:text-brand-orange transition-colors">Online Grievance</a></li>
+                <li><a href="#tenders" className="hover:text-brand-orange transition-colors">Tenders & Auctions</a></li>
               </ul>
             </div>
           </div>
@@ -62,10 +62,10 @@ const Footer: React.FC = () => {
             <AccordionHeader title="External Links" id="external-links" />
             <div className={`md:block ${openSection === 'external-links' ? 'block mb-6' : 'hidden'}`}>
               <ul className="space-y-3">
-                <li><a href="https://ulbharyana.gov.in" className="hover:text-brand-orange transition-colors">ULB Haryana</a></li>
-                <li><a href="https://haryanacmoffice.gov.in" className="hover:text-brand-orange transition-colors">CM Office Haryana</a></li>
-                <li><a href="https://jhajjar.nic.in" className="hover:text-brand-orange transition-colors">District Administration</a></li>
-                <li><a href="https://india.gov.in" className="hover:text-brand-orange transition-colors">National Portal of India</a></li>
+                <li><a href="https://ulbharyana.gov.in" target="_blank" rel="noopener noreferrer" className="hover:text-brand-orange transition-colors">ULB Haryana</a></li>
+                <li><a href="https://haryanacmoffice.gov.in" target="_blank" rel="noopener noreferrer" className="hover:text-brand-orange transition-colors">CM Office Haryana</a></li>
+                <li><a href="https://jhajjar.nic.in" target="_blank" rel="noopener noreferrer" className="hover:text-brand-orange transition-colors">District Administration</a></li>
+                <li><a href="https://india.gov.in" target="_blank" rel="noopener noreferrer" className="hover:text-brand-orange transition-colors">National Portal of India</a></li>
               </ul>
             </div>
           </div>
@@ -94,8 +94,8 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Copyright */}
-      <div className="bg-[#0b3552] py-6 border-t border-[#0b3552]">
+      {/* Copyright - Using Brand Blue with transparency/border for subtle distinction instead of arbitrary hex */}
+      <div className="bg-brand-blue py-6 border-t border-white/10 relative">
         <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400">
           <p className="text-center md:text-left mb-4 md:mb-0">© 2023 Municipal Council Jhajjar. All rights reserved.</p>
           <div className="flex flex-wrap justify-center space-x-6">

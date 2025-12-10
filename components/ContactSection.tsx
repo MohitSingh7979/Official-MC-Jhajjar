@@ -42,7 +42,7 @@ const ContactSection: React.FC = () => {
                </div>
 
                {/* Embed Placeholder */}
-               <div className="w-full h-64 bg-slate-800 rounded-xl overflow-hidden relative group shadow-lg border border-white/10">
+               <div className="w-full h-96 bg-white/10 rounded-xl overflow-hidden relative group shadow-lg border border-white/10">
                  <iframe 
                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d259.69409188821277!2d76.64889731970239!3d28.603464772824115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1765350158870!5m2!1sen!2sin" 
                    width="100%" 
@@ -70,12 +70,12 @@ const ContactSection: React.FC = () => {
 
             <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert("Message sent!"); }}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" placeholder="First Name" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none" required />
-                <input type="text" placeholder="Last Name" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none" required />
+                <input type="text" placeholder="First Name" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none placeholder:text-slate-500" required />
+                <input type="text" placeholder="Last Name" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none placeholder:text-slate-500" required />
               </div>
-              <input type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none" required />
-              <input type="text" placeholder="Subject" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none" required />
-              <textarea rows={4} placeholder="Your Message" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none resize-none" required></textarea>
+              <input type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none placeholder:text-slate-500" required />
+              <input type="text" placeholder="Subject" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none placeholder:text-slate-500" required />
+              <textarea rows={4} placeholder="Your Message" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none resize-none placeholder:text-slate-500" required></textarea>
               
               <button type="submit" className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-3 rounded-lg transition-all shadow-md flex items-center justify-center">
                 Send Message <Send className="w-4 h-4 ml-2" />

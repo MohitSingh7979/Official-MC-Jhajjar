@@ -18,13 +18,15 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchClick, onLoginClick }) => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-20">
           {/* Logo Section */}
-          <div className="flex items-center space-x-3">
-             <div className="w-12 h-12 bg-brand-blue rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg border-2 border-brand-orange">
-                MC
-             </div>
-             <div className="flex flex-col">
-                <span className="text-xl font-bold text-brand-blue leading-tight">Municipal Council Jhajjar</span>
-                <span className="text-xs text-brand-orange font-bold tracking-wider">GOVERNMENT OF HARYANA</span>
+          <div className="flex items-center space-x-4">
+             <img 
+               src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Emblem_of_Haryana.svg/800px-Emblem_of_Haryana.svg.png" 
+               alt="Government of Haryana" 
+               className="h-16 w-auto object-contain drop-shadow-sm"
+             />
+             <div className="flex flex-col border-l-2 border-slate-200 pl-4 h-12 justify-center">
+                <span className="text-xl font-bold text-brand-blue leading-none mb-1">Municipal Council Jhajjar</span>
+                <span className="text-xs text-brand-orange font-bold tracking-widest uppercase">Government of Haryana</span>
              </div>
           </div>
 

@@ -154,7 +154,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onNewsSelect }) => {
                             <span>{result.label}</span>
                             <span>{result.width}</span>
                           </div>
-                          <div className="w-full bg-slate-800 rounded-full h-2">
+                          <div className="w-full bg-white/10 rounded-full h-2">
                             <div className="bg-brand-orange h-2 rounded-full transition-all duration-1000" style={{ width: result.width }}></div>
                           </div>
                         </div>

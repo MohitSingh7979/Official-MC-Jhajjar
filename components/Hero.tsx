@@ -37,10 +37,12 @@ const Hero: React.FC<HeroProps> = ({ onOpenGrievance }) => {
           
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-300 mb-10">
             <a 
-              href="#services" 
+              href="https://online.ulbharyana.gov.in/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-4 bg-brand-orange hover:bg-brand-orange/90 text-white rounded-lg font-bold transition-all shadow-lg hover:shadow-brand-orange/30 flex items-center justify-center group"
             >
-              Online Services
+              Online Citizen Services
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <button 
@@ -55,13 +57,13 @@ const Hero: React.FC<HeroProps> = ({ onOpenGrievance }) => {
           <div className="animate-fade-in-up delay-300 pt-6 border-t border-white/10">
             <p className="text-xs text-slate-300 uppercase tracking-widest font-bold mb-3">Trending Services</p>
             <div className="flex flex-wrap gap-3">
-              <a href="#property-tax" className="flex items-center px-4 py-2 bg-brand-blue/50 hover:bg-brand-blue rounded-full text-xs font-medium transition-colors border border-white/20 hover:border-brand-orange">
+              <a href="https://property.ulbharyana.gov.in/" target="_blank" rel="noopener noreferrer" className="flex items-center px-4 py-2 bg-brand-blue/50 hover:bg-brand-blue rounded-full text-xs font-medium transition-colors border border-white/20 hover:border-brand-orange">
                 <Flame className="w-3 h-3 text-brand-orange mr-2" /> Property Tax
               </a>
-              <a href="#water" className="flex items-center px-4 py-2 bg-brand-blue/50 hover:bg-brand-blue rounded-full text-xs font-medium transition-colors border border-white/20 hover:border-brand-blue">
+              <a href="https://online.ulbharyana.gov.in/" target="_blank" rel="noopener noreferrer" className="flex items-center px-4 py-2 bg-brand-blue/50 hover:bg-brand-blue rounded-full text-xs font-medium transition-colors border border-white/20 hover:border-brand-blue">
                 <Droplets className="w-3 h-3 text-white mr-2" /> Water Bill
               </a>
-              <a href="#birth" className="flex items-center px-4 py-2 bg-brand-blue/50 hover:bg-brand-blue rounded-full text-xs font-medium transition-colors border border-white/20 hover:border-brand-green">
+              <a href="https://crsorgi.gov.in/web/index.php/auth/login" target="_blank" rel="noopener noreferrer" className="flex items-center px-4 py-2 bg-brand-blue/50 hover:bg-brand-blue rounded-full text-xs font-medium transition-colors border border-white/20 hover:border-brand-green">
                 <Baby className="w-3 h-3 text-brand-green mr-2" /> Birth Cert
               </a>
             </div>
