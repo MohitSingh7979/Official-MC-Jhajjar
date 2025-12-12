@@ -109,7 +109,7 @@ const GrievanceModal: React.FC<GrievanceModalProps> = ({ isOpen, onClose }) => {
       ></div>
 
       {/* Modal Content */}
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md relative z-10 overflow-hidden animate-fade-in-up border border-brand-blue/10">
+      <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl relative z-10 overflow-hidden animate-fade-in-up border border-brand-blue/10">
         {step === 'form' ? (
           <>
             <div className="bg-brand-orange px-6 py-4 flex justify-between items-center text-white">
@@ -243,7 +243,7 @@ const GrievanceModal: React.FC<GrievanceModalProps> = ({ isOpen, onClose }) => {
                   className={`w-full py-3 rounded-lg font-bold transition-all flex items-center justify-center ${
                     isSubmitting 
                       ? 'bg-slate-300 text-slate-500 cursor-not-allowed' 
-                      : 'bg-brand-blue text-white hover:bg-brand-blue/90 shadow-md hover:shadow-lg'
+                      : 'bg-brand-orange text-white hover:bg-brand-orange/90 shadow-md hover:shadow-lg'
                   }`}
                 >
                   {isSubmitting ? (

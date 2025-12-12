@@ -34,11 +34,12 @@
       }
       .marquee-content {
         display: inline-block;
-        animation: marquee 20s linear infinite;
+        /* Seamless loop: width 200% (duplicated content), moves to -50% */
+        animation: marquee 60s linear infinite;
       }
       @keyframes marquee {
-        0% { transform: translateX(100%); }
-        100% { transform: translateX(-100%); }
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
       }
       
       /* New Animations */

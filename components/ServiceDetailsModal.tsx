@@ -69,7 +69,7 @@ const ServiceDetailsModal: React.FC<ServiceDetailsModalProps> = ({ service, onCl
             </ul>
           </div>
 
-          <button className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center group">
+          <button className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center group">
             Proceed to Apply
             <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
           </button>

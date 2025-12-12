@@ -23,30 +23,67 @@ const Dashboard = lazy(() => import('./components/Dashboard'));
 const DepartmentsSection = lazy(() => import('./components/DepartmentsSection'));
 const InfoSections = lazy(() => import('./components/InfoSections'));
 const ContactSection = lazy(() => import('./components/ContactSection'));
+const OfficialsDirectory = lazy(() => import('./components/OfficialsDirectory'));
+
+type ViewState = 'home' | 'directory';
 
 function App() {
+  const [view, setView] = useState<ViewState>('home');
   const [isGrievanceModalOpen, setIsGrievanceModalOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
   
-  // Smooth scroll behavior for anchor links
+  // Hash Routing Logic
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash === '#directory') {
+        setView('directory');
+        window.scrollTo(0, 0);
+      } else {
+        setView('home');
+      }
+    };
+
+    // Initial check
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  // Smooth scroll behavior for anchor links (only when in home view or if cross-page logic needed)
   useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const anchor = target.closest('a');
-      if (anchor && anchor.hash && anchor.hash.startsWith('#') && anchor.origin === window.location.origin) {
-        e.preventDefault();
-        const element = document.querySelector(anchor.hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+      
+      if (anchor && anchor.hash) {
+        // Allow default behavior for directory link since we have hash listener
+        if (anchor.hash === '#directory') return; 
+
+        // For other internal links, if we are on directory page, let browser handle hash change -> switches to home -> then scroll
+        // This logic is handled by the useEffect above setting 'home' view on other hashes.
+        
+        // Smooth scroll only if we are already on home and targeting a section
+        if (anchor.origin === window.location.origin && anchor.hash !== '#directory' && view === 'home') {
+           e.preventDefault();
+           const element = document.querySelector(anchor.hash);
+           if (element) {
+             element.scrollIntoView({ behavior: 'smooth' });
+             // Optionally push state to URL without triggering hashchange if we want to avoid re-renders, 
+             // but keeping it simple for now.
+             window.history.pushState(null, '', anchor.hash);
+           }
         }
       }
     };
     document.addEventListener('click', handleAnchorClick);
     return () => document.removeEventListener('click', handleAnchorClick);
-  }, []);
+  }, [view]);
 
   // Global Keyboard Shortcut for Search
   useEffect(() => {
@@ -68,17 +105,25 @@ function App() {
           onSearchClick={() => setIsSearchOpen(true)} 
           onLoginClick={() => setIsLoginOpen(true)}
         />
-        <NewsTicker />
+        <NewsTicker onNewsClick={setSelectedNews} />
+        
         <main className="flex-grow">
-          <Hero onOpenGrievance={() => setIsGrievanceModalOpen(true)} />
-          
-          <Suspense fallback={<SectionLoader />}>
-            <ServicesGrid onServiceSelect={setSelectedService} />
-            <DepartmentsSection />
-            <InfoSections />
-            <Dashboard onNewsSelect={setSelectedNews} />
-            <ContactSection />
-          </Suspense>
+          {view === 'home' ? (
+            <>
+              <Hero onOpenGrievance={() => setIsGrievanceModalOpen(true)} />
+              <Suspense fallback={<SectionLoader />}>
+                <ServicesGrid onServiceSelect={setSelectedService} />
+                <DepartmentsSection />
+                <InfoSections />
+                <Dashboard onNewsSelect={setSelectedNews} />
+                <ContactSection />
+              </Suspense>
+            </>
+          ) : (
+            <Suspense fallback={<SectionLoader />}>
+              <OfficialsDirectory />
+            </Suspense>
+          )}
         </main>
         
         {/* Added pb-16 to Footer wrapper to account for MobileBottomNav on small screens */}

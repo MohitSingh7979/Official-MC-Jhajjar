@@ -69,17 +69,17 @@ const QuickPayWidget: React.FC = () => {
             </form>
           ) : (
             <div className="animate-fade-in-up">
-              <div className="flex items-start mb-4 bg-green-50 p-3 rounded-lg border border-green-100">
-                <CheckCircle2 className="w-5 h-5 text-green-600 mr-2 mt-0.5 shrink-0" />
+              <div className="flex items-start mb-4 bg-brand-green/10 p-3 rounded-lg border border-brand-green/20">
+                <CheckCircle2 className="w-5 h-5 text-brand-green mr-2 mt-0.5 shrink-0" />
                 <div>
                   <p className="text-xs text-slate-500 uppercase font-bold">Property Found</p>
                   <p className="text-sm font-bold text-slate-800">{result.name}</p>
-                  <p className="text-xs text-slate-600 mt-1">Dues: <span className="text-red-600 font-bold">{result.due}</span></p>
+                  <p className="text-xs text-slate-600 mt-1">Dues: <span className="text-brand-red font-bold">{result.due}</span></p>
                 </div>
               </div>
               <button 
                 onClick={handlePay}
-                className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white font-bold py-2.5 rounded-lg text-sm transition-colors flex justify-center items-center group"
+                className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-2.5 rounded-lg text-sm transition-colors flex justify-center items-center group"
               >
                 Pay Now <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </button>

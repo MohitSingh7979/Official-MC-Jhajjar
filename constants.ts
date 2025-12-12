@@ -2,7 +2,7 @@ import {
   FileText, Home, Users, Building2, Phone, Receipt, Baby, Truck, AlertTriangle,
   MapPin, Landmark, Briefcase, Gavel, Scale, Database, Globe, Droplets,
   HardHat, Trash2, Calculator, Percent, Key, UserCheck, Flame, Heart, 
-  PawPrint, Calendar, Store, Signal
+  PawPrint, Calendar, Store, Signal, Megaphone, Hammer, Wrench
 } from 'lucide-react';
 import { NavItem, Service, NewsItem, Stat, Official, Department } from './types';
 
@@ -15,8 +15,8 @@ export const NAV_ITEMS: NavItem[] = [
     subItems: [
       { label: 'History of Jhajjar', href: '#history' },
       { label: 'City Profile', href: '#profile' },
+      { label: 'Officials Directory', href: '#directory' }, // Added Route
       { label: 'Organizational Chart', href: '#org' },
-      { label: 'Map', href: '#contact' }
     ]
   },
   { 
@@ -182,6 +182,66 @@ export const SERVICES: Service[] = [
     category: "Construction"
   },
   {
+    id: 's13',
+    title: "Advertising Permit",
+    description: "Apply for permission to display advertisements, banners, or hoardings.",
+    icon: Megaphone,
+    link: "https://online.ulbharyana.gov.in/",
+    color: "bg-brand-blue",
+    accent: "text-brand-blue",
+    documents: ['Site Plan', 'Content Details'],
+    timeframe: '15 Days',
+    fees: 'Area Based',
+    isExternal: true,
+    buttonLabel: "Apply",
+    category: "Commercial"
+  },
+  {
+    id: 's14',
+    title: "Road Cutting",
+    description: "Permission for road cutting to lay underground cables or pipes.",
+    icon: Hammer,
+    link: "https://online.ulbharyana.gov.in/",
+    color: "bg-brand-orange",
+    accent: "text-brand-orange",
+    documents: ['Route Map', 'Purpose'],
+    timeframe: '7 Days',
+    fees: 'Per Meter',
+    isExternal: true,
+    buttonLabel: "Apply",
+    category: "Construction"
+  },
+  {
+    id: 's15',
+    title: "Septic Tank Cleaning",
+    description: "Book municipal suction machines for septic tank cleaning.",
+    icon: Wrench,
+    link: "https://online.ulbharyana.gov.in/",
+    color: "bg-brand-green",
+    accent: "text-brand-green",
+    documents: ['ID Proof', 'Address'],
+    timeframe: '24-48 Hours',
+    fees: 'Fixed Rate',
+    isExternal: true,
+    buttonLabel: "Book Now",
+    category: "Sanitation"
+  },
+  {
+    id: 's16',
+    title: "Mobile Tower NOC",
+    description: "Application for installation of communication towers.",
+    icon: Signal,
+    link: "https://online.ulbharyana.gov.in/",
+    color: "bg-brand-blue",
+    accent: "text-brand-blue",
+    documents: ['Site Plan', 'Structural Safety'],
+    timeframe: '30 Days',
+    fees: 'As per Policy',
+    isExternal: true,
+    buttonLabel: "Apply",
+    category: "Utilities"
+  },
+  {
     id: 's2',
     title: "Grievance Redressal",
     description: "File and track complaints about municipal services.",
@@ -314,7 +374,7 @@ export const DIGNITARIES: Official[] = [
     id: 'd3',
     name: 'Sh. Swapnil Ravindra Patil, IAS',
     designation: "Deputy Commissioner",
-    image: 'https://ui-avatars.com/api/?name=Swapnil+Patil&background=11486b&color=fff&size=256&bold=true', // Placeholder for white shirt, flags background
+    image: 'https://ui-avatars.com/api/?name=Swapnil+Patil&background=11486b&color=fff&size=256&bold=true', 
     category: 'District',
     priority: 3
   },
@@ -322,7 +382,7 @@ export const DIGNITARIES: Official[] = [
     id: 'd4',
     name: 'Dr. Sushil, HCS',
     designation: "DMC Jhajjar",
-    image: 'https://ui-avatars.com/api/?name=Sushil+HCS&background=11486b&color=fff&size=256&bold=true', // Placeholder for yellow shirt
+    image: 'https://ui-avatars.com/api/?name=Sushil+HCS&background=11486b&color=fff&size=256&bold=true', 
     category: 'District',
     priority: 4
   }
@@ -346,6 +406,24 @@ export const OFFICIALS: Official[] = [
     image: 'https://ui-avatars.com/api/?name=Mohan+Lal&background=478356&color=fff&size=256', 
     phone: "+91 98964 00750", 
     email: "eo-jhajjar@ulbharyana.gov.in",
+    category: 'Municipal'
+  },
+  { 
+    id: 'o3', 
+    name: 'Sh. Pankaj Saini', 
+    designation: 'Municipal Engineer', 
+    image: 'https://ui-avatars.com/api/?name=Pankaj+Saini&background=da6328&color=fff&size=256', 
+    phone: "+91 98964 12345", 
+    email: "me-jhajjar@ulbharyana.gov.in",
+    category: 'Municipal'
+  },
+  { 
+    id: 'o4', 
+    name: 'Sh. Avinash', 
+    designation: 'Chief Sanitary Inspector', 
+    image: 'https://ui-avatars.com/api/?name=Avinash+CSI&background=ffa425&color=fff&size=256', 
+    phone: "+91 98123 45678", 
+    email: "csi-jhajjar@ulbharyana.gov.in",
     category: 'Municipal'
   },
 ];
@@ -376,6 +454,22 @@ export const LATEST_NEWS: NewsItem[] = [
     category: 'Tender', 
     link: '#',
     summary: "Open auction for 15 commercial sites on leasehold basis."
+  },
+  { 
+    id: '4', 
+    title: 'Alert: Heavy Rain Forecast - Emergency Numbers', 
+    date: `${currentYear}-02-20`, 
+    category: 'Circular', 
+    link: '#',
+    summary: "Citizens are advised to stay indoors. Contact control room 01251-252002 for emergencies."
+  },
+  { 
+    id: '5', 
+    title: 'Health Camp: Free Checkup at Community Center', 
+    date: `${currentYear}-02-18`, 
+    category: 'Notification', 
+    link: '#',
+    summary: "Free general health and eye checkup camp organized by MCJ on coming Sunday."
   }
 ];
 

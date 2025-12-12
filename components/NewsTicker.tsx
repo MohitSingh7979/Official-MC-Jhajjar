@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
-import { Bell, Pause, Play } from 'lucide-react';
+import { Bell, Pause, Play, ExternalLink } from 'lucide-react';
+import { LATEST_NEWS } from '../constants';
+import { NewsItem } from '../types';
 
-const NewsTicker: React.FC = () => {
+interface NewsTickerProps {
+  onNewsClick: (item: NewsItem) => void;
+}
+
+const NewsTicker: React.FC<NewsTickerProps> = ({ onNewsClick }) => {
   const [isPaused, setIsPaused] = useState(false);
+
+  // duplicate news to ensure smooth scrolling loop without gaps
+  const displayNews = [...LATEST_NEWS, ...LATEST_NEWS]; 
 
   return (
     <div className="bg-brand-red text-white relative overflow-hidden flex items-center h-12 group">
@@ -15,15 +24,22 @@ const NewsTicker: React.FC = () => {
       {/* Marquee Area - Using Brand Red for alerts/news */}
       <div className="flex-1 overflow-hidden relative h-full flex items-center bg-brand-red">
         <div 
-          className={`marquee-content whitespace-nowrap py-2 cursor-pointer flex items-center ${isPaused ? 'paused' : ''}`}
+          className={`marquee-content whitespace-nowrap py-2 flex items-center ${isPaused ? 'paused' : ''}`}
           style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          <span className="mx-8 font-medium text-sm flex items-center"><span className="w-1.5 h-1.5 bg-white rounded-full mr-2"></span>Last date for Property Tax submission with 10% rebate extended till 31st Dec 2023.</span>
-          <span className="mx-8 font-medium text-sm flex items-center"><span className="w-1.5 h-1.5 bg-white rounded-full mr-2"></span>Special sanitation drive to be held in Ward 4 & 5 this Sunday.</span>
-          <span className="mx-8 font-medium text-sm flex items-center"><span className="w-1.5 h-1.5 bg-white rounded-full mr-2"></span>Online portals will be down for maintenance from 10 PM to 2 AM.</span>
-          <span className="mx-8 font-medium text-sm flex items-center"><span className="w-1.5 h-1.5 bg-white rounded-full mr-2"></span>Citizen feedback required for the new city park project.</span>
+          {displayNews.map((item, index) => (
+            <button
+              key={`${item.id}-${index}`}
+              onClick={() => onNewsClick(item)}
+              className="mx-8 font-medium text-base tracking-wide flex items-center hover:underline hover:text-white/90 focus:outline-none focus:bg-white/10 rounded px-2 transition-colors"
+            >
+              <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 shrink-0"></span>
+              {item.title}
+              <ExternalLink className="w-3 h-3 ml-1 opacity-70" />
+            </button>
+          ))}
         </div>
       </div>
 
