@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Facebook, Twitter, Instagram, Mail, Phone, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Mail, Phone, MapPin, ChevronDown, ChevronUp, Smartphone, Play } from 'lucide-react';
 
 const Footer: React.FC = () => {
   // Mobile Accordion State
@@ -36,10 +36,30 @@ const Footer: React.FC = () => {
             <p className="mb-6 leading-relaxed text-slate-300">
               Committed to providing transparent governance and improved civic amenities for the citizens of Jhajjar.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 mb-8">
               <a href="#" aria-label="Facebook" className="bg-white/10 hover:bg-brand-orange text-white p-2 rounded-full transition-colors"><Facebook className="w-4 h-4"/></a>
               <a href="#" aria-label="Twitter" className="bg-white/10 hover:bg-brand-orange text-white p-2 rounded-full transition-colors"><Twitter className="w-4 h-4"/></a>
               <a href="#" aria-label="Instagram" className="bg-white/10 hover:bg-brand-orange text-white p-2 rounded-full transition-colors"><Instagram className="w-4 h-4"/></a>
+            </div>
+
+            {/* App Download Section */}
+            <div className="pt-6 border-t border-white/10">
+               <h4 className="text-white font-bold mb-3 flex items-center">
+                 <Smartphone className="w-4 h-4 mr-2 text-brand-orange" />
+                 Citizen Mobile Apps
+               </h4>
+               <p className="text-xs mb-4 text-slate-400 leading-relaxed">
+                 Access grievance redressal, property tax, and other municipal services directly from your phone.
+               </p>
+               <a 
+                 href="https://play.google.com/store/apps/developer?id=Department+of+Urban+Local+Bodies,+Haryana&hl=en_IN"
+                 target="_blank"
+                 rel="noopener noreferrer" 
+                 className="inline-flex items-center bg-white/10 hover:bg-brand-orange text-white px-4 py-2.5 rounded-lg transition-all text-xs font-bold border border-white/10 hover:border-brand-orange group shadow-sm"
+               >
+                 <Play className="w-3 h-3 mr-2 fill-current group-hover:scale-110 transition-transform" />
+                 View on Google Play
+               </a>
             </div>
           </div>
 
