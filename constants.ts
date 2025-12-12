@@ -2,7 +2,7 @@ import {
   FileText, Home, Users, Building2, Phone, Receipt, Baby, Truck, AlertTriangle,
   MapPin, Landmark, Briefcase, Gavel, Scale, Database, Globe, Droplets,
   HardHat, Trash2, Calculator, Percent, Key, UserCheck, Flame, Heart, 
-  PawPrint, Calendar, Store, Signal, Megaphone, Hammer, Wrench
+  PawPrint, Calendar, Store, Signal, Megaphone, Hammer, Wrench, IndianRupee, ShoppingBag
 } from 'lucide-react';
 import { NavItem, Service, NewsItem, Stat, Official, Department } from './types';
 
@@ -62,6 +62,21 @@ export const SERVICES: Service[] = [
     category: "Finance"
   },
   {
+    id: 's18',
+    title: "Development Charges",
+    description: "Pay outstanding development charges and municipal dues.",
+    icon: IndianRupee,
+    link: "https://online.ulbharyana.gov.in/",
+    color: "bg-brand-blue",
+    accent: "text-brand-blue",
+    documents: ['Property ID', 'Demand Notice'],
+    timeframe: 'Instant',
+    fees: 'As per Demand',
+    isExternal: true,
+    buttonLabel: "Pay Now",
+    category: "Finance"
+  },
+  {
     id: 's4',
     title: "Water & Sewerage",
     description: "Apply for new connections and pay bills via ULB Portal.",
@@ -89,6 +104,21 @@ export const SERVICES: Service[] = [
     fees: 'Category Based',
     isExternal: true, 
     buttonLabel: "ULB Portal",
+    category: "Commercial"
+  },
+  {
+    id: 's17',
+    title: "Street Vendor Reg.",
+    description: "Registration and licensing for street vendors (Rehari/Phadi).",
+    icon: ShoppingBag,
+    link: "https://online.ulbharyana.gov.in/",
+    color: "bg-brand-orange",
+    accent: "text-brand-orange",
+    documents: ['Aadhar Card', 'Bank Account'],
+    timeframe: '30 Days',
+    fees: '₹1000/Year',
+    isExternal: true,
+    buttonLabel: "Register",
     category: "Commercial"
   },
   {
