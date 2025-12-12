@@ -21,23 +21,25 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchClick, onLoginClick }) => {
     <>
       <nav className="bg-white shadow-md sticky top-0 z-50 border-t-4 border-brand-orange">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center h-24">
-            {/* Logo Section - Refined Typography for Responsiveness */}
-            <div className="flex items-center gap-3 md:gap-4 flex-shrink-0">
+          <div className="flex justify-between items-center min-h-[5.5rem] py-3 md:py-0 md:h-28">
+            {/* Logo Section - Optimized typography scaling to prevent collision */}
+            <a href="#" className="flex items-center gap-3 sm:gap-4 flex-shrink-0 group relative z-20">
                <img 
                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Emblem_of_Haryana.svg/800px-Emblem_of_Haryana.svg.png" 
                  alt="Government of Haryana Emblem" 
-                 className="h-16 md:h-20 w-auto object-contain drop-shadow-sm hover:scale-105 transition-transform duration-300"
+                 className="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
                />
-               <div className="hidden sm:flex flex-col justify-center h-full border-l-2 border-slate-200 pl-3 md:pl-4 py-1">
-                  <span className="text-[10px] md:text-xs font-bold text-brand-orange tracking-widest uppercase mb-0.5 leading-none">Government of Haryana</span>
-                  <span className="text-lg md:text-2xl font-extrabold text-brand-blue leading-tight tracking-tight my-0.5">Municipal Council Jhajjar</span>
-                  <span className="text-[10px] md:text-xs text-slate-500 font-medium tracking-wide leading-none">Official Citizen Portal</span>
+               <div className="flex flex-col justify-center h-full border-l-2 border-slate-200 pl-3 sm:pl-4 py-1">
+                  <span className="text-[10px] sm:text-xs font-bold text-brand-orange tracking-widest uppercase leading-none mb-1">Government of Haryana</span>
+                  <h1 className="text-lg sm:text-2xl lg:text-2xl 2xl:text-3xl font-extrabold text-brand-blue leading-none tracking-tight group-hover:text-brand-blue/90 transition-colors">
+                    Municipal Council Jhajjar
+                  </h1>
+                  <span className="text-[10px] sm:text-xs text-slate-500 font-medium tracking-wide leading-none mt-1">Official Citizen Portal</span>
                </div>
-            </div>
+            </a>
 
-            {/* Desktop Navigation - Added Keyboard Focus Support */}
-            <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+            {/* Desktop Navigation - Shifted to XL breakpoint to ensure space */}
+            <div className="hidden xl:flex items-center space-x-5 2xl:space-x-8">
               {NAV_ITEMS.map((item) => (
                 <div key={item.label} className="relative group">
                   <a 
@@ -84,9 +86,9 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchClick, onLoginClick }) => {
               </div>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Visible up to XL screens */}
             <button 
-              className="lg:hidden p-2 text-brand-blue hover:text-brand-orange rounded-md hover:bg-slate-50 transition-colors"
+              className="xl:hidden p-2 text-brand-blue hover:text-brand-orange rounded-md hover:bg-slate-50 transition-colors"
               onClick={toggleMenu}
               aria-label={isOpen ? "Close menu" : "Open menu"}
             >
@@ -98,19 +100,19 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchClick, onLoginClick }) => {
 
       {/* Mobile Drawer Backdrop */}
       <div 
-        className={`fixed inset-0 bg-slate-900/60 z-[60] lg:hidden transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 bg-slate-900/60 z-[60] xl:hidden transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setIsOpen(false)}
         aria-hidden="true"
       />
 
-      {/* Mobile Navigation Drawer */}
+      {/* Mobile Navigation Drawer - Enhanced for Laptop use if needed */}
       <div 
-        className={`fixed top-0 left-0 h-full w-[85%] max-w-[320px] bg-white z-[70] shadow-2xl transform transition-transform duration-300 ease-in-out flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:hidden`}
+        className={`fixed top-0 left-0 h-full w-[85%] max-w-sm bg-white z-[70] shadow-2xl transform transition-transform duration-300 ease-in-out flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'} xl:hidden`}
       >
         {/* Drawer Header */}
         <div className="p-5 bg-brand-blue text-white flex justify-between items-center shrink-0">
           <div>
-            <h2 className="font-bold text-lg leading-tight">MC Jhajjar</h2>
+            <h2 className="font-bold text-xl leading-tight">MC Jhajjar</h2>
             <p className="text-xs text-brand-orange opacity-90">Official Portal</p>
           </div>
           <button 
@@ -123,18 +125,18 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchClick, onLoginClick }) => {
 
         {/* Drawer Content */}
         <div className="flex-1 overflow-y-auto py-4">
-          <div className="px-4 mb-6 space-y-3">
+          <div className="px-6 mb-8 space-y-3">
              <button 
                 onClick={() => { onLoginClick(); setIsOpen(false); }}
-                className="w-full bg-brand-orange text-white py-3 rounded-lg font-bold shadow-md flex items-center justify-center"
+                className="w-full bg-brand-orange text-white py-3.5 rounded-xl font-bold shadow-md flex items-center justify-center hover:bg-brand-orange/90 transition-colors"
               >
-                 <LogIn className="w-4 h-4 mr-2" /> Login / Register
+                 <LogIn className="w-5 h-5 mr-3" /> Login / Register
               </button>
               <button 
                 onClick={() => { onSearchClick(); setIsOpen(false); }}
-                className="w-full bg-slate-100 text-slate-700 py-3 rounded-lg font-bold border border-slate-200 flex items-center justify-center"
+                className="w-full bg-slate-50 text-slate-700 py-3.5 rounded-xl font-bold border border-slate-200 flex items-center justify-center hover:bg-slate-100 transition-colors"
               >
-                 <Search className="w-4 h-4 mr-2" /> Search Services
+                 <Search className="w-5 h-5 mr-3" /> Search Services
               </button>
           </div>
 
@@ -142,7 +144,7 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchClick, onLoginClick }) => {
             {NAV_ITEMS.map((item) => (
               <div key={item.label} className="border-b border-slate-50">
                 <div 
-                  className={`flex justify-between items-center px-6 py-4 font-bold text-slate-700 active:bg-slate-50 transition-colors cursor-pointer ${activeDropdown === item.label ? 'bg-slate-50 text-brand-blue' : ''}`}
+                  className={`flex justify-between items-center px-6 py-4 font-bold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer ${activeDropdown === item.label ? 'bg-slate-50 text-brand-blue' : ''}`}
                   onClick={() => {
                     if (item.subItems) {
                       setActiveDropdown(activeDropdown === item.label ? null : item.label);
@@ -152,12 +154,12 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchClick, onLoginClick }) => {
                     }
                   }}
                 >
-                  <span className="flex items-center">
-                    {item.label === 'Home' && <Home className="w-4 h-4 mr-3 text-brand-orange" />}
+                  <span className="flex items-center text-base">
+                    {item.label === 'Home' && <Home className="w-5 h-5 mr-3 text-brand-orange" />}
                     {item.label}
                   </span>
                   {item.subItems && (
-                    <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${activeDropdown === item.label ? 'rotate-180 text-brand-orange' : ''}`} />
+                    <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform duration-200 ${activeDropdown === item.label ? 'rotate-180 text-brand-orange' : ''}`} />
                   )}
                 </div>
                 
@@ -171,7 +173,7 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchClick, onLoginClick }) => {
                         className="flex items-center px-10 py-3 text-sm text-slate-600 hover:text-brand-orange border-l-4 border-transparent hover:border-brand-orange transition-colors"
                         onClick={() => setIsOpen(false)}
                       >
-                        <ChevronRight className="w-3 h-3 mr-2 opacity-50" />
+                        <ChevronRight className="w-4 h-4 mr-2 opacity-50" />
                         {sub.label}
                       </a>
                     ))}
@@ -184,16 +186,16 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchClick, onLoginClick }) => {
 
         {/* Drawer Footer */}
         <div className="p-6 bg-slate-50 border-t border-slate-200 shrink-0">
-           <div className="flex flex-col space-y-3 text-xs font-medium text-slate-500">
-              <a href="tel:+911251252002" className="flex items-center hover:text-brand-blue">
-                 <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-3 shadow-sm">
-                    <Phone className="w-4 h-4 text-brand-orange" />
+           <div className="flex flex-col space-y-3 text-sm font-medium text-slate-600">
+              <a href="tel:+911251252002" className="flex items-center hover:text-brand-blue group">
+                 <div className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-3 shadow-sm group-hover:border-brand-blue transition-colors">
+                    <Phone className="w-5 h-5 text-brand-orange" />
                  </div>
                  +91-1251-252002
               </a>
-              <a href="mailto:secymc.jhajjar@hry.nic.in" className="flex items-center hover:text-brand-blue">
-                 <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-3 shadow-sm">
-                    <Mail className="w-4 h-4 text-brand-orange" />
+              <a href="mailto:secymc.jhajjar@hry.nic.in" className="flex items-center hover:text-brand-blue group">
+                 <div className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-3 shadow-sm group-hover:border-brand-blue transition-colors">
+                    <Mail className="w-5 h-5 text-brand-orange" />
                  </div>
                  secymc.jhajjar@hry.nic.in
               </a>

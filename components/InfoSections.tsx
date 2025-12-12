@@ -1,5 +1,5 @@
 import React from 'react';
-import { History, FileText, Scale, Download } from 'lucide-react';
+import { History, FileText, Scale, Download, Map, Users, Landmark, Trees } from 'lucide-react';
 
 const InfoSections: React.FC = () => {
   // Generate dynamic dates for demo purposes to ensure badges always show up correctly
@@ -45,18 +45,15 @@ const InfoSections: React.FC = () => {
                 <History className="w-4 h-4 mr-2" /> Our Heritage
               </div>
               <h2 className="text-4xl font-bold text-brand-blue mb-6 leading-tight">History of Jhajjar</h2>
-              <div className="prose prose-slate text-slate-600 space-y-4">
+              <div className="prose prose-slate text-slate-600 space-y-4 text-justify">
                 <p>
-                  Jhajjar was established by Chhajju as Chhajunagar, which was later changed to Jhajjar. 
-                  It was part of the harassed territory of the chaotic eighteenth century. It is heavily 
-                  influenced by the culture of Haryana and has a rich historical legacy dating back to the 
-                  medieval period.
+                  The town of Jhajjar, headquarters of the district, is said to have been founded by one Chhajju and passed to the hands of different rulers. The name was derived from Chhajunagar, which changed to Jhajjar over time. It naturally became part of the territory of the Nawab of Jhajjar during the British East India Company era.
                 </p>
                 <p>
-                  The municipality was constituted in 1954 and has since grown into a key urban center 
-                  connecting Rohtak, Rewari, and Delhi. It is known for its historic gates and the 
-                  Jhajjar Gurukul archaeology museum. The Municipal Council is dedicated to preserving this 
-                  legacy while modernizing civic infrastructure.
+                  Jhajjar holds immense historical significance due to its active participation in the <strong>First War of Independence in 1857</strong>. The Nawab of Jhajjar, Abdur Rahman Khan, played a pivotal role in the uprising against British rule, for which he was martyred. The district is proud of its brave soldiers and martyrs who have served the nation.
+                </p>
+                <p>
+                   Modern Jhajjar is a growing educational and industrial hub, located strategically near New Delhi. The Municipal Council, constituted in 1954, oversees the civic administration, ensuring the preservation of its heritage sites—like the historic gates and the Gurukul Museum—while fostering urban development.
                 </p>
               </div>
             </div>
@@ -78,8 +75,54 @@ const InfoSections: React.FC = () => {
         </div>
       </section>
 
+      {/* City Profile Section */}
+      <section id="profile" className="py-20 bg-slate-50 border-b border-slate-100">
+         <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+               <div className="inline-flex items-center text-brand-orange font-bold tracking-wider uppercase text-sm mb-2">
+                 <Map className="w-4 h-4 mr-2" /> City at a Glance
+               </div>
+               <h2 className="text-3xl font-bold text-brand-blue">City Profile</h2>
+               <p className="text-slate-500 mt-2 max-w-2xl mx-auto">
+                 Jhajjar is rapidly developing with a focus on sustainable infrastructure and citizen welfare.
+               </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+               <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 text-center hover:shadow-md transition-shadow group">
+                  <div className="w-14 h-14 bg-blue-50 text-brand-blue rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                     <Users className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-3xl font-bold text-slate-800 mb-1">48,424+</h3>
+                  <p className="text-xs text-slate-500 uppercase font-bold tracking-wide">Population (2011)</p>
+               </div>
+               <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 text-center hover:shadow-md transition-shadow group">
+                  <div className="w-14 h-14 bg-orange-50 text-brand-orange rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                     <Map className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-3xl font-bold text-slate-800 mb-1">20.40</h3>
+                  <p className="text-xs text-slate-500 uppercase font-bold tracking-wide">Area (Sq. Km)</p>
+               </div>
+               <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 text-center hover:shadow-md transition-shadow group">
+                  <div className="w-14 h-14 bg-green-50 text-brand-green rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                     <Landmark className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-3xl font-bold text-slate-800 mb-1">19</h3>
+                  <p className="text-xs text-slate-500 uppercase font-bold tracking-wide">Municipal Wards</p>
+               </div>
+               <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 text-center hover:shadow-md transition-shadow group">
+                  <div className="w-14 h-14 bg-yellow-50 text-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                     <Trees className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-3xl font-bold text-slate-800 mb-1">80.53%</h3>
+                  <p className="text-xs text-slate-500 uppercase font-bold tracking-wide">Literacy Rate</p>
+               </div>
+            </div>
+         </div>
+      </section>
+
       {/* Tenders Section */}
-      <section id="tenders" className="py-20 bg-slate-50 border-b border-slate-100">
+      <section id="tenders" className="py-20 bg-white border-b border-slate-100">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <div className="inline-flex items-center text-brand-blue font-bold tracking-wider uppercase text-sm mb-2">
@@ -140,7 +183,7 @@ const InfoSections: React.FC = () => {
       </section>
 
       {/* RTI Section */}
-      <section id="rti" className="py-20">
+      <section id="rti" className="py-20 bg-slate-50">
         <div className="container mx-auto px-4">
           <div className="bg-brand-blue rounded-2xl p-8 md:p-12 text-white relative overflow-hidden">
              <div className="absolute top-0 right-0 p-40 bg-brand-orange/20 rounded-full blur-3xl -mr-20 -mt-20"></div>
