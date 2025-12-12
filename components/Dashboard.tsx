@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { CITY_STATS, OFFICIALS, DIGNITARIES, LATEST_NEWS } from '../constants';
-import { Calendar, FileText, Download, BarChart2 } from 'lucide-react';
+import { Calendar, FileText, Download, BarChart2, Mail, Phone, ChevronRight } from 'lucide-react';
 import { NewsItem } from '../types';
 
 interface DashboardProps {
@@ -69,45 +69,75 @@ const Dashboard: React.FC<DashboardProps> = ({ onNewsSelect }) => {
           {/* Main Info Column */}
           <div className="lg:col-span-8 space-y-12">
             
-            {/* Leadership / Dignitaries */}
+            {/* Leadership / Dignitaries Section - Redesigned */}
             <div>
-              <div className="flex items-center mb-6">
-                 <div className="w-1 h-6 bg-brand-orange mr-3 rounded-full"></div>
-                 <h2 className="text-2xl font-bold text-brand-blue">Administration</h2>
+              <div className="flex items-center mb-8">
+                 <div className="w-1.5 h-8 bg-brand-orange mr-4 rounded-full"></div>
+                 <div>
+                   <h2 className="text-2xl font-bold text-brand-blue leading-none">Administration</h2>
+                   <p className="text-sm text-slate-500 mt-1">Key officials serving the citizens of Jhajjar</p>
+                 </div>
               </div>
               
-              {/* Top Leadership */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-                 {DIGNITARIES.map((person) => (
-                   <div key={person.id} className="text-center group">
-                      <div className="relative inline-block mb-3">
-                        <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-slate-100 shadow-md group-hover:border-brand-orange transition-colors">
-                           <img src={person.image} alt={person.name} className="w-full h-full object-cover" />
-                        </div>
-                        <div className={`absolute bottom-0 right-0 w-6 h-6 rounded-full border-2 border-white flex items-center justify-center text-[10px] font-bold text-white
-                          ${person.category === 'National' ? 'bg-brand-orange' : person.category === 'State' ? 'bg-brand-orange' : 'bg-brand-blue'}`}>
-                          {person.category[0]}
-                        </div>
+              {/* Hierarchy Row 1: National & State (Large Cards) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                 {DIGNITARIES.filter(d => ['National', 'State'].includes(d.category)).map((person) => (
+                   <div key={person.id} className="flex bg-white rounded-xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                      <div className="w-32 bg-slate-100 shrink-0 relative">
+                         <img src={person.image} alt={person.name} className="w-full h-full object-cover object-top" />
                       </div>
-                      <h4 className="text-sm font-bold text-brand-blue leading-tight">{person.name}</h4>
-                      <p className="text-xs text-slate-500 mt-1">{person.designation}</p>
+                      <div className="p-5 flex flex-col justify-center">
+                         <span className={`text-[10px] font-bold uppercase tracking-widest mb-1 
+                           ${person.category === 'National' ? 'text-brand-orange' : 'text-brand-blue'}`}>
+                           {person.category} Leadership
+                         </span>
+                         <h3 className="font-bold text-lg text-slate-800 leading-tight mb-1">{person.name}</h3>
+                         <p className="text-sm text-slate-500 font-medium">{person.designation}</p>
+                      </div>
                    </div>
                  ))}
               </div>
 
-              {/* Municipal Officials */}
-              <div className="bg-slate-50 rounded-xl p-6 border border-slate-100">
-                <h3 className="text-sm font-bold text-slate-500 uppercase mb-4">Municipal Officers</h3>
-                <div className="grid md:grid-cols-2 gap-6">
-                  {OFFICIALS.map((off) => (
-                    <div key={off.id} className="flex items-center bg-white p-4 rounded-lg shadow-sm border border-slate-100 hover:border-brand-blue/30 transition-colors">
-                       <img src={off.image} alt={off.name} className="w-12 h-12 rounded-full object-cover mr-4" />
+              {/* Hierarchy Row 2: District Administration */}
+              <div className="mb-8">
+                <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 border-b border-slate-100 pb-2">District Administration</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {DIGNITARIES.filter(d => d.category === 'District').map((person) => (
+                    <div key={person.id} className="flex items-center bg-slate-50 p-4 rounded-xl border border-slate-200/60">
+                       <img src={person.image} alt={person.name} className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm mr-4" />
                        <div>
-                          <h4 className="font-bold text-brand-blue text-sm">{off.name}</h4>
-                          <p className="text-xs text-brand-orange font-bold">{off.designation}</p>
-                          <div className="mt-1 space-x-2 text-xs text-slate-400">
-                             {off.phone && <span>{off.phone}</span>}
+                          <h4 className="font-bold text-brand-blue">{person.name}</h4>
+                          <p className="text-xs font-bold text-brand-orange uppercase">{person.designation}</p>
+                       </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Hierarchy Row 3: Municipal Administration */}
+              <div>
+                <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 border-b border-slate-100 pb-2">Municipal Council Officers</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {OFFICIALS.map((off) => (
+                    <div key={off.id} className="group relative bg-white rounded-xl border border-slate-200 p-5 shadow-sm hover:border-brand-blue/30 hover:shadow-md transition-all">
+                       <div className="flex items-center mb-3">
+                          <img src={off.image} alt={off.name} className="w-12 h-12 rounded-full object-cover border border-slate-100 mr-3" />
+                          <div>
+                             <h4 className="font-bold text-slate-800">{off.name}</h4>
+                             <p className="text-xs font-bold text-brand-blue">{off.designation}</p>
                           </div>
+                       </div>
+                       <div className="pt-3 border-t border-slate-50 flex flex-col space-y-1.5">
+                          {off.phone && (
+                            <a href={`tel:${off.phone}`} className="flex items-center text-xs text-slate-500 hover:text-brand-orange transition-colors">
+                              <Phone className="w-3 h-3 mr-2" /> {off.phone}
+                            </a>
+                          )}
+                          {off.email && (
+                            <a href={`mailto:${off.email}`} className="flex items-center text-xs text-slate-500 hover:text-brand-orange transition-colors">
+                              <Mail className="w-3 h-3 mr-2" /> {off.email}
+                            </a>
+                          )}
                        </div>
                     </div>
                   ))}
@@ -116,7 +146,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onNewsSelect }) => {
             </div>
 
             {/* Citizen Poll Section */}
-            <div className="bg-brand-blue rounded-2xl p-8 text-white relative overflow-hidden">
+            <div className="bg-brand-blue rounded-2xl p-8 text-white relative overflow-hidden shadow-xl">
               <div className="absolute top-0 right-0 p-32 bg-brand-orange rounded-full blur-3xl opacity-20"></div>
               <div className="relative z-10">
                 <div className="flex items-center mb-6">
@@ -169,46 +199,46 @@ const Dashboard: React.FC<DashboardProps> = ({ onNewsSelect }) => {
 
           {/* Sidebar / News Column */}
           <div className="lg:col-span-4">
-            <div className="bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden sticky top-24">
-              <div className="bg-brand-blue text-white p-4 flex justify-between items-center">
-                <h3 className="font-bold flex items-center">
+            <div className="bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden sticky top-28">
+              <div className="bg-brand-blue text-white p-5 flex justify-between items-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-brand-orange/10"></div>
+                <h3 className="font-bold flex items-center relative z-10 text-lg">
                   <FileText className="w-5 h-5 mr-2 text-brand-orange" />
-                  Notice Board
+                  Public Notices
                 </h3>
-                <span className="text-xs bg-brand-orange px-2 py-1 rounded">Live</span>
+                <span className="text-[10px] font-bold bg-brand-orange text-white px-2 py-0.5 rounded shadow-sm relative z-10 uppercase tracking-wide">Live Updates</span>
               </div>
-              <div className="divide-y divide-slate-100 max-h-[500px] overflow-y-auto">
+              <div className="divide-y divide-slate-100 max-h-[600px] overflow-y-auto bg-slate-50/50">
                 {LATEST_NEWS.map((item) => (
                   <button 
                     key={item.id} 
                     onClick={() => onNewsSelect(item)}
-                    className="w-full text-left block p-5 hover:bg-slate-50 transition-colors group"
+                    className="w-full text-left block p-5 hover:bg-white transition-all group relative border-l-4 border-transparent hover:border-brand-orange"
                   >
                     <div className="flex justify-between items-start mb-2">
-                      <span className={`text-xs px-2 py-1 rounded font-bold uppercase 
-                        ${item.category === 'Tender' ? 'bg-brand-blue/10 text-brand-blue' : 
-                          item.category === 'Circular' ? 'bg-brand-orange/10 text-brand-orange' : 
-                          'bg-brand-green/10 text-brand-green'}`}>
+                      <span className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wide 
+                        ${item.category === 'Tender' ? 'bg-blue-100 text-brand-blue' : 
+                          item.category === 'Circular' ? 'bg-orange-100 text-brand-orange' : 
+                          'bg-green-100 text-brand-green'}`}>
                         {item.category}
                       </span>
-                      <span className="text-xs text-slate-400 flex items-center">
+                      <span className="text-[10px] text-slate-400 flex items-center font-medium">
                         <Calendar className="w-3 h-3 mr-1" />
                         {item.date}
                       </span>
                     </div>
-                    <h4 className="text-sm font-bold text-brand-blue group-hover:text-brand-orange leading-snug mb-2">
+                    <h4 className="text-sm font-bold text-brand-blue group-hover:text-brand-orange leading-snug mb-2 transition-colors">
                       {item.title}
                     </h4>
-                    <p className="text-xs text-slate-500 line-clamp-2 mb-2">{item.summary}</p>
-                    <span className="text-xs text-brand-orange font-bold flex items-center group-hover:underline">
-                      <Download className="w-3 h-3 mr-1" />
-                      View Details
-                    </span>
+                    <p className="text-xs text-slate-500 line-clamp-2 mb-3">{item.summary}</p>
+                    <div className="flex items-center text-xs text-brand-blue font-bold group-hover:underline decoration-brand-orange">
+                      Read More <ChevronRight className="w-3 h-3 ml-1" />
+                    </div>
                   </button>
                 ))}
               </div>
-              <div className="p-4 bg-slate-50 border-t border-slate-100 text-center">
-                <button className="text-sm font-bold text-brand-blue hover:text-brand-orange transition-colors">View Archives &rarr;</button>
+              <div className="p-4 bg-white border-t border-slate-100 text-center">
+                <button className="text-sm font-bold text-brand-blue hover:text-brand-orange transition-colors">View All Notices &rarr;</button>
               </div>
             </div>
           </div>

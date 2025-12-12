@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Send, CheckCircle, AlertCircle, Loader2, RefreshCw } from 'lucide-react';
 import useScrollLock from '../hooks/useScrollLock';
 
 interface GrievanceModalProps {
@@ -11,7 +11,10 @@ const GrievanceModal: React.FC<GrievanceModalProps> = ({ isOpen, onClose }) => {
   useScrollLock(isOpen);
   const [step, setStep] = useState<'form' | 'success'>('form');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errors, setErrors] = useState<{phone?: string}>({});
+  const [errors, setErrors] = useState<{phone?: string; captcha?: string}>({});
+  const [captcha, setCaptcha] = useState({ q: '', a: 0 });
+  const [captchaInput, setCaptchaInput] = useState('');
+  
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -20,15 +23,36 @@ const GrievanceModal: React.FC<GrievanceModalProps> = ({ isOpen, onClose }) => {
     description: ''
   });
 
+  // Generate new captcha
+  const refreshCaptcha = () => {
+    const n1 = Math.floor(Math.random() * 10) + 1;
+    const n2 = Math.floor(Math.random() * 10) + 1;
+    setCaptcha({ q: `${n1} + ${n2}`, a: n1 + n2 });
+    setCaptchaInput('');
+    setErrors(prev => ({ ...prev, captcha: undefined }));
+  };
+
+  useEffect(() => {
+    if (isOpen) refreshCaptcha();
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const validate = () => {
-    const newErrors: {phone?: string} = {};
+    const newErrors: {phone?: string; captcha?: string} = {};
+    
     // Indian Mobile Number Validation: 10 digits, starts with 6-9
     const phoneRegex = /^[6-9]\d{9}$/;
     if (!phoneRegex.test(formData.phone)) {
       newErrors.phone = "Please enter a valid 10-digit mobile number.";
     }
+
+    // Captcha Validation
+    if (parseInt(captchaInput) !== captcha.a) {
+      newErrors.captcha = "Incorrect answer. Please try again.";
+      refreshCaptcha(); // Refresh on error to prevent brute force
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -51,6 +75,7 @@ const GrievanceModal: React.FC<GrievanceModalProps> = ({ isOpen, onClose }) => {
     setIsSubmitting(false);
     setErrors({});
     setFormData({ name: '', phone: '', ward: '', type: 'Sanitation', description: '' });
+    setCaptchaInput('');
     onClose();
   };
 
@@ -158,6 +183,38 @@ const GrievanceModal: React.FC<GrievanceModalProps> = ({ isOpen, onClose }) => {
                 ></textarea>
               </div>
 
+              {/* CAPTCHA Section */}
+              <div className="bg-slate-50 p-3 rounded-lg border border-slate-100 flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="bg-white border border-slate-200 px-3 py-1.5 rounded text-slate-700 font-mono font-bold select-none text-lg">
+                    {captcha.q} = ?
+                  </div>
+                  <button 
+                    type="button" 
+                    onClick={refreshCaptcha}
+                    className="p-1.5 text-slate-400 hover:text-brand-orange transition-colors rounded-full hover:bg-white"
+                    title="Refresh Captcha"
+                  >
+                    <RefreshCw className="w-4 h-4" />
+                  </button>
+                </div>
+                <div className="flex-1 ml-4">
+                  <input 
+                    required
+                    type="number" 
+                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 outline-none text-sm ${errors.captcha ? 'border-brand-red/50 focus:ring-brand-red/30' : 'border-slate-200 focus:ring-brand-orange'}`}
+                    placeholder="Answer"
+                    value={captchaInput}
+                    onChange={e => {
+                      setCaptchaInput(e.target.value);
+                      if (errors.captcha) setErrors({...errors, captcha: undefined});
+                    }}
+                    disabled={isSubmitting}
+                  />
+                </div>
+              </div>
+              {errors.captcha && <p className="text-xs text-brand-red text-right mt-0">{errors.captcha}</p>}
+
               <div className="pt-2">
                 <button 
                   type="submit" 
@@ -171,7 +228,7 @@ const GrievanceModal: React.FC<GrievanceModalProps> = ({ isOpen, onClose }) => {
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Submitting...
+                      Verifying & Submitting...
                     </>
                   ) : (
                     <>

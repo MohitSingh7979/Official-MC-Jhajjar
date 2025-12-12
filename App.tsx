@@ -13,6 +13,7 @@ import LoginModal from './components/LoginModal';
 import SectionLoader from './components/SectionLoader';
 import ServiceDetailsModal from './components/ServiceDetailsModal';
 import NewsModal from './components/NewsModal';
+import QuickPayWidget from './components/QuickPayWidget';
 import { Service, NewsItem } from './types';
 
 // Lazy load heavy components to improve FCP
@@ -85,6 +86,7 @@ function App() {
       
       <BackToTop />
       <AccessibilityWidget />
+      <QuickPayWidget />
       <MobileBottomNav onOpenGrievance={() => setIsGrievanceModalOpen(true)} />
       
       {/* Modals Layer */}

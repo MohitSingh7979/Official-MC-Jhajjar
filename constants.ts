@@ -292,13 +292,13 @@ export const DEPARTMENTS: Department[] = [
   }
 ];
 
-// --- Dignitaries ---
+// --- Dignitaries (Hierarchy: National -> State -> District -> Municipal) ---
 export const DIGNITARIES: Official[] = [
   {
     id: 'd1',
     name: 'Sh. Narendra Modi',
     designation: "Hon'ble Prime Minister",
-    image: 'https://ui-avatars.com/api/?name=Narendra+Modi&background=da6328&color=fff&size=128&bold=true',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Narendra_Modi_2021.jpg/800px-Narendra_Modi_2021.jpg',
     category: 'National',
     priority: 1
   },
@@ -306,7 +306,7 @@ export const DIGNITARIES: Official[] = [
     id: 'd2',
     name: 'Sh. Nayab Singh Saini',
     designation: "Hon'ble Chief Minister",
-    image: 'https://ui-avatars.com/api/?name=Nayab+Singh+Saini&background=da6328&color=fff&size=128&bold=true',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Nayab_Singh_Saini_2024.jpg/640px-Nayab_Singh_Saini_2024.jpg',
     category: 'State',
     priority: 2
   },
@@ -314,7 +314,7 @@ export const DIGNITARIES: Official[] = [
     id: 'd3',
     name: 'Sh. Swapnil Ravindra Patil, IAS',
     designation: "Deputy Commissioner",
-    image: 'https://ui-avatars.com/api/?name=Swapnil+Patil&background=11486b&color=fff&size=128&bold=true',
+    image: 'https://ui-avatars.com/api/?name=Swapnil+Patil&background=11486b&color=fff&size=256&bold=true', // Placeholder for white shirt, flags background
     category: 'District',
     priority: 3
   },
@@ -322,7 +322,7 @@ export const DIGNITARIES: Official[] = [
     id: 'd4',
     name: 'Dr. Sushil, HCS',
     designation: "DMC Jhajjar",
-    image: 'https://ui-avatars.com/api/?name=Sushil+HCS&background=11486b&color=fff&size=128&bold=true',
+    image: 'https://ui-avatars.com/api/?name=Sushil+HCS&background=11486b&color=fff&size=256&bold=true', // Placeholder for yellow shirt
     category: 'District',
     priority: 4
   }
@@ -334,7 +334,7 @@ export const OFFICIALS: Official[] = [
     id: 'o1', 
     name: 'Sh. Devinder Kumar', 
     designation: 'Executive Officer', 
-    image: 'https://ui-avatars.com/api/?name=Devinder+Kumar&background=ac2b49&color=fff', 
+    image: 'https://ui-avatars.com/api/?name=Devinder+Kumar&background=ac2b49&color=fff&size=256', 
     phone: "+91-95820 75152", 
     email: "eo-jhajjar@ulbharyana.gov.in",
     category: 'Municipal'
@@ -343,7 +343,7 @@ export const OFFICIALS: Official[] = [
     id: 'o2', 
     name: 'Sh. Mohan Lal', 
     designation: 'Secretary', 
-    image: 'https://ui-avatars.com/api/?name=Mohan+Lal&background=478356&color=fff', 
+    image: 'https://ui-avatars.com/api/?name=Mohan+Lal&background=478356&color=fff&size=256', 
     phone: "+91 98964 00750", 
     email: "eo-jhajjar@ulbharyana.gov.in",
     category: 'Municipal'

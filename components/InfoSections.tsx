@@ -1,20 +1,52 @@
 import React from 'react';
-import { History, FileText, Scale } from 'lucide-react';
+import { History, FileText, Scale, Download } from 'lucide-react';
 
 const InfoSections: React.FC = () => {
+  // Generate dynamic dates for demo purposes to ensure badges always show up correctly
+  const today = new Date();
+  const formatDate = (daysAgo: number) => {
+    const d = new Date(today);
+    d.setDate(d.getDate() - daysAgo);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  };
+
+  const TENDERS = [
+    { 
+      id: 'MCJ/2023/104', 
+      desc: 'Construction of Community Center in Ward 7', 
+      date: formatDate(2), // 2 days ago
+      status: 'Active',
+      isNew: true
+    },
+    { 
+      id: 'MCJ/2023/102', 
+      desc: 'Repair of Street Lights on Main Bazaar Road', 
+      date: formatDate(5), // 5 days ago
+      status: 'Active',
+      isNew: true
+    },
+    { 
+      id: 'MCJ/2023/099', 
+      desc: 'Annual Maintenance Contract for IT Infrastructure', 
+      date: formatDate(20), 
+      status: 'Closed',
+      isNew: false
+    }
+  ];
+
   return (
     <div className="bg-white">
       {/* About / History Section */}
       <section id="history" className="py-20 border-b border-slate-100">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-12 items-center">
-            <div className="md:w-1/2">
-              <div className="inline-flex items-center text-brand-orange font-bold tracking-wider uppercase text-sm mb-2">
+            <div className="md:w-1/2 order-2 md:order-1">
+              <div className="inline-flex items-center text-brand-orange font-bold tracking-wider uppercase text-sm mb-3">
                 <History className="w-4 h-4 mr-2" /> Our Heritage
               </div>
-              <h2 className="text-3xl font-bold text-brand-blue mb-6">History of Jhajjar</h2>
-              <div className="prose prose-slate text-slate-600">
-                <p className="mb-4">
+              <h2 className="text-4xl font-bold text-brand-blue mb-6 leading-tight">History of Jhajjar</h2>
+              <div className="prose prose-slate text-slate-600 space-y-4">
+                <p>
                   Jhajjar was established by Chhajju as Chhajunagar, which was later changed to Jhajjar. 
                   It was part of the harassed territory of the chaotic eighteenth century. It is heavily 
                   influenced by the culture of Haryana and has a rich historical legacy dating back to the 
@@ -23,16 +55,24 @@ const InfoSections: React.FC = () => {
                 <p>
                   The municipality was constituted in 1954 and has since grown into a key urban center 
                   connecting Rohtak, Rewari, and Delhi. It is known for its historic gates and the 
-                  Jhajjar Gurukul archaeology museum.
+                  Jhajjar Gurukul archaeology museum. The Municipal Council is dedicated to preserving this 
+                  legacy while modernizing civic infrastructure.
                 </p>
               </div>
             </div>
-            <div className="md:w-1/2">
-              <img 
-                src="https://picsum.photos/800/600?grayscale" 
-                alt="Historical Jhajjar" 
-                className="rounded-2xl shadow-xl w-full object-cover h-80 hover:scale-[1.02] transition-transform duration-500 border border-brand-blue/10"
-              />
+            <div className="md:w-1/2 order-1 md:order-2">
+              <div className="relative">
+                 <div className="absolute -inset-4 bg-brand-orange/20 rounded-2xl rotate-3"></div>
+                 <img 
+                   src="https://upload.wikimedia.org/wikipedia/commons/e/e4/District_Administration_Jhajjar.jpg" 
+                   alt="Municipal Council Jhajjar Building" 
+                   className="relative rounded-xl shadow-2xl w-full object-cover h-[400px] border-4 border-white"
+                 />
+                 <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-lg border-l-4 border-brand-blue">
+                    <p className="text-xs font-bold text-slate-500 uppercase mb-1">Established 1954</p>
+                    <p className="font-bold text-brand-blue">Municipal Council Secretariat</p>
+                 </div>
+              </div>
             </div>
           </div>
         </div>
@@ -53,30 +93,43 @@ const InfoSections: React.FC = () => {
               <thead className="bg-slate-100 text-slate-700 uppercase font-bold">
                 <tr>
                   <th className="p-4">Tender ID</th>
-                  <th className="p-4">Description</th>
+                  <th className="p-4 w-1/2">Description</th>
                   <th className="p-4">Closing Date</th>
-                  <th className="p-4 text-right">Status</th>
+                  <th className="p-4 text-center">Status</th>
+                  <th className="p-4 text-right">Download</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                <tr className="hover:bg-slate-50 transition-colors">
-                  <td className="p-4 font-mono text-slate-500">MCJ/2023/104</td>
-                  <td className="p-4 font-medium">Construction of Community Center in Ward 7</td>
-                  <td className="p-4 text-brand-orange">Oct 30, 2023</td>
-                  <td className="p-4 text-right"><span className="bg-brand-green/10 text-brand-green px-2 py-1 rounded text-xs font-bold">Active</span></td>
-                </tr>
-                <tr className="hover:bg-slate-50 transition-colors">
-                  <td className="p-4 font-mono text-slate-500">MCJ/2023/102</td>
-                  <td className="p-4 font-medium">Repair of Street Lights on Main Bazaar Road</td>
-                  <td className="p-4 text-brand-orange">Oct 25, 2023</td>
-                  <td className="p-4 text-right"><span className="bg-brand-green/10 text-brand-green px-2 py-1 rounded text-xs font-bold">Active</span></td>
-                </tr>
-                <tr className="hover:bg-slate-50 transition-colors">
-                  <td className="p-4 font-mono text-slate-500">MCJ/2023/099</td>
-                  <td className="p-4 font-medium">Annual Maintenance Contract for IT Infrastructure</td>
-                  <td className="p-4 text-slate-400">Oct 15, 2023</td>
-                  <td className="p-4 text-right"><span className="bg-slate-100 text-slate-500 px-2 py-1 rounded text-xs">Closed</span></td>
-                </tr>
+                {TENDERS.map((tender, index) => (
+                  <tr key={index} className="hover:bg-slate-50 transition-colors group">
+                    <td className="p-4 font-mono text-slate-500 font-medium">{tender.id}</td>
+                    <td className="p-4">
+                      <div className="font-medium text-slate-800 flex items-center">
+                        {tender.desc}
+                        {tender.isNew && (
+                          <span className="ml-2 bg-brand-red text-white text-[10px] font-bold px-1.5 py-0.5 rounded animate-pulse">
+                            NEW
+                          </span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="p-4 text-brand-orange font-medium">{tender.date}</td>
+                    <td className="p-4 text-center">
+                      <span className={`px-2 py-1 rounded text-xs font-bold ${
+                        tender.status === 'Active' 
+                          ? 'bg-brand-green/10 text-brand-green' 
+                          : 'bg-slate-100 text-slate-500'
+                      }`}>
+                        {tender.status}
+                      </span>
+                    </td>
+                    <td className="p-4 text-right">
+                      <button className="text-slate-400 hover:text-brand-blue transition-colors p-2 hover:bg-slate-100 rounded-full" title="Download PDF">
+                        <Download className="w-4 h-4" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
