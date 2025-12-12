@@ -7,6 +7,8 @@ interface GrievanceModalProps {
   onClose: () => void;
 }
 
+const STORAGE_KEY = 'mc_jhajjar_grievance_draft';
+
 const GrievanceModal: React.FC<GrievanceModalProps> = ({ isOpen, onClose }) => {
   useScrollLock(isOpen);
   const [step, setStep] = useState<'form' | 'success'>('form');
@@ -22,6 +24,23 @@ const GrievanceModal: React.FC<GrievanceModalProps> = ({ isOpen, onClose }) => {
     type: 'Sanitation',
     description: ''
   });
+
+  // Load saved draft on mount
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        setFormData(JSON.parse(saved));
+      } catch (e) {
+        console.error('Failed to parse saved draft');
+      }
+    }
+  }, []);
+
+  // Save draft on change
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+  }, [formData]);
 
   // Generate new captcha
   const refreshCaptcha = () => {
@@ -67,6 +86,8 @@ const GrievanceModal: React.FC<GrievanceModalProps> = ({ isOpen, onClose }) => {
     setTimeout(() => {
       setIsSubmitting(false);
       setStep('success');
+      localStorage.removeItem(STORAGE_KEY); // Clear draft on success
+      setFormData({ name: '', phone: '', ward: '', type: 'Sanitation', description: '' }); // Reset form
     }, 1500);
   };
 
@@ -74,7 +95,7 @@ const GrievanceModal: React.FC<GrievanceModalProps> = ({ isOpen, onClose }) => {
     setStep('form');
     setIsSubmitting(false);
     setErrors({});
-    setFormData({ name: '', phone: '', ward: '', type: 'Sanitation', description: '' });
+    // We do NOT clear formData here so users can resume later if they just closed the modal
     setCaptchaInput('');
     onClose();
   };

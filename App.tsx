@@ -15,6 +15,7 @@ import ServiceDetailsModal from './components/ServiceDetailsModal';
 import NewsModal from './components/NewsModal';
 import QuickPayWidget from './components/QuickPayWidget';
 import { Service, NewsItem } from './types';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 // Lazy load heavy components to improve FCP
 const ServicesGrid = lazy(() => import('./components/ServicesGrid'));
@@ -60,58 +61,60 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col font-sans relative">
-      <TopBar />
-      <Navbar 
-        onSearchClick={() => setIsSearchOpen(true)} 
-        onLoginClick={() => setIsLoginOpen(true)}
-      />
-      <NewsTicker />
-      <main className="flex-grow">
-        <Hero onOpenGrievance={() => setIsGrievanceModalOpen(true)} />
+    <LanguageProvider>
+      <div className="min-h-screen flex flex-col font-sans relative">
+        <TopBar />
+        <Navbar 
+          onSearchClick={() => setIsSearchOpen(true)} 
+          onLoginClick={() => setIsLoginOpen(true)}
+        />
+        <NewsTicker />
+        <main className="flex-grow">
+          <Hero onOpenGrievance={() => setIsGrievanceModalOpen(true)} />
+          
+          <Suspense fallback={<SectionLoader />}>
+            <ServicesGrid onServiceSelect={setSelectedService} />
+            <DepartmentsSection />
+            <InfoSections />
+            <Dashboard onNewsSelect={setSelectedNews} />
+            <ContactSection />
+          </Suspense>
+        </main>
         
-        <Suspense fallback={<SectionLoader />}>
-          <ServicesGrid onServiceSelect={setSelectedService} />
-          <DepartmentsSection />
-          <InfoSections />
-          <Dashboard onNewsSelect={setSelectedNews} />
-          <ContactSection />
-        </Suspense>
-      </main>
-      
-      {/* Added pb-16 to Footer wrapper to account for MobileBottomNav on small screens */}
-      <div className="pb-16 lg:pb-0">
-        <Footer />
+        {/* Added pb-16 to Footer wrapper to account for MobileBottomNav on small screens */}
+        <div className="pb-16 lg:pb-0">
+          <Footer />
+        </div>
+        
+        <BackToTop />
+        <AccessibilityWidget />
+        <QuickPayWidget />
+        <MobileBottomNav onOpenGrievance={() => setIsGrievanceModalOpen(true)} />
+        
+        {/* Modals Layer */}
+        <GrievanceModal 
+          isOpen={isGrievanceModalOpen} 
+          onClose={() => setIsGrievanceModalOpen(false)} 
+        />
+        <GlobalSearch 
+          isOpen={isSearchOpen}
+          onClose={() => setIsSearchOpen(false)}
+          onServiceSelect={setSelectedService}
+        />
+        <LoginModal 
+          isOpen={isLoginOpen}
+          onClose={() => setIsLoginOpen(false)}
+        />
+        <ServiceDetailsModal 
+          service={selectedService}
+          onClose={() => setSelectedService(null)}
+        />
+        <NewsModal 
+          item={selectedNews}
+          onClose={() => setSelectedNews(null)}
+        />
       </div>
-      
-      <BackToTop />
-      <AccessibilityWidget />
-      <QuickPayWidget />
-      <MobileBottomNav onOpenGrievance={() => setIsGrievanceModalOpen(true)} />
-      
-      {/* Modals Layer */}
-      <GrievanceModal 
-        isOpen={isGrievanceModalOpen} 
-        onClose={() => setIsGrievanceModalOpen(false)} 
-      />
-      <GlobalSearch 
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-        onServiceSelect={setSelectedService}
-      />
-      <LoginModal 
-        isOpen={isLoginOpen}
-        onClose={() => setIsLoginOpen(false)}
-      />
-      <ServiceDetailsModal 
-        service={selectedService}
-        onClose={() => setSelectedService(null)}
-      />
-      <NewsModal 
-        item={selectedNews}
-        onClose={() => setSelectedNews(null)}
-      />
-    </div>
+    </LanguageProvider>
   );
 }
 

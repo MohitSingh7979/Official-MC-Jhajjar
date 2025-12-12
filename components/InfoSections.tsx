@@ -1,38 +1,10 @@
 import React from 'react';
-import { History, FileText, Scale, Download, Map, Users, Landmark, Trees } from 'lucide-react';
+import { History, FileText, Scale, Map, Users, Landmark, Trees } from 'lucide-react';
+import TendersTable from './TendersTable';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const InfoSections: React.FC = () => {
-  // Generate dynamic dates for demo purposes to ensure badges always show up correctly
-  const today = new Date();
-  const formatDate = (daysAgo: number) => {
-    const d = new Date(today);
-    d.setDate(d.getDate() - daysAgo);
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-  };
-
-  const TENDERS = [
-    { 
-      id: 'MCJ/2023/104', 
-      desc: 'Construction of Community Center in Ward 7', 
-      date: formatDate(2), // 2 days ago
-      status: 'Active',
-      isNew: true
-    },
-    { 
-      id: 'MCJ/2023/102', 
-      desc: 'Repair of Street Lights on Main Bazaar Road', 
-      date: formatDate(5), // 5 days ago
-      status: 'Active',
-      isNew: true
-    },
-    { 
-      id: 'MCJ/2023/099', 
-      desc: 'Annual Maintenance Contract for IT Infrastructure', 
-      date: formatDate(20), 
-      status: 'Closed',
-      isNew: false
-    }
-  ];
+  const { t } = useLanguage();
 
   return (
     <div className="bg-white">
@@ -128,56 +100,13 @@ const InfoSections: React.FC = () => {
             <div className="inline-flex items-center text-brand-blue font-bold tracking-wider uppercase text-sm mb-2">
               <FileText className="w-4 h-4 mr-2" /> E-Procurement
             </div>
-            <h2 className="text-3xl font-bold text-brand-blue">Active Tenders & Auctions</h2>
+            <h2 className="text-3xl font-bold text-brand-blue">{t('tenders_title')}</h2>
           </div>
           
-          <div className="overflow-x-auto bg-white rounded-xl shadow-sm border border-slate-200">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-slate-100 text-slate-700 uppercase font-bold">
-                <tr>
-                  <th className="p-4">Tender ID</th>
-                  <th className="p-4 w-1/2">Description</th>
-                  <th className="p-4">Closing Date</th>
-                  <th className="p-4 text-center">Status</th>
-                  <th className="p-4 text-right">Download</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {TENDERS.map((tender, index) => (
-                  <tr key={index} className="hover:bg-slate-50 transition-colors group">
-                    <td className="p-4 font-mono text-slate-500 font-medium">{tender.id}</td>
-                    <td className="p-4">
-                      <div className="font-medium text-slate-800 flex items-center">
-                        {tender.desc}
-                        {tender.isNew && (
-                          <span className="ml-2 bg-brand-red text-white text-[10px] font-bold px-1.5 py-0.5 rounded animate-pulse">
-                            NEW
-                          </span>
-                        )}
-                      </div>
-                    </td>
-                    <td className="p-4 text-brand-orange font-medium">{tender.date}</td>
-                    <td className="p-4 text-center">
-                      <span className={`px-2 py-1 rounded text-xs font-bold ${
-                        tender.status === 'Active' 
-                          ? 'bg-brand-green/10 text-brand-green' 
-                          : 'bg-slate-100 text-slate-500'
-                      }`}>
-                        {tender.status}
-                      </span>
-                    </td>
-                    <td className="p-4 text-right">
-                      <button className="text-slate-400 hover:text-brand-blue transition-colors p-2 hover:bg-slate-100 rounded-full" title="Download PDF">
-                        <Download className="w-4 h-4" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <TendersTable />
+          
           <div className="text-center mt-6">
-             <button className="text-brand-blue font-bold hover:underline">View All Active Tenders &rarr;</button>
+             <button className="text-brand-blue font-bold hover:underline">{t('view_all')} &rarr;</button>
           </div>
         </div>
       </section>

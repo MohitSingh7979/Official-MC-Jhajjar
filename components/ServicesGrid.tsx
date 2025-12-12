@@ -44,7 +44,7 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({ onServiceSelect }) => {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-bold transition-all border ${
+                className={`px-4 py-2 rounded-full text-sm font-bold transition-all border min-w-[80px] ${
                   selectedCategory === cat
                     ? 'bg-brand-blue text-white border-brand-blue shadow-md'
                     : 'bg-white text-slate-500 border-slate-200 hover:border-brand-orange hover:text-brand-orange'
