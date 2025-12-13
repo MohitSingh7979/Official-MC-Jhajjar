@@ -13,9 +13,9 @@ const TopBar: React.FC = () => {
             <Phone className="w-3 h-3 mr-2" />
             +91-1251-252002
           </a>
-          <a href="mailto:secymc.jhajjar@hry.nic.in" className="flex items-center hover:text-brand-yellow transition-colors">
+          <a href="mailto:sjsecymcjhajjar@gmail.com" className="flex items-center hover:text-brand-yellow transition-colors">
             <Mail className="w-3 h-3 mr-2" />
-            secymc.jhajjar@hry.nic.in
+            sjsecymcjhajjar@gmail.com
           </a>
         </div>
         <div className="flex items-center space-x-4">

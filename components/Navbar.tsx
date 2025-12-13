@@ -216,11 +216,11 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchClick, onLoginClick }) => {
                  </div>
                  +91-1251-252002
               </a>
-              <a href="mailto:secymc.jhajjar@hry.nic.in" className="flex items-center hover:text-brand-blue group">
+              <a href="mailto:sjsecymcjhajjar@gmail.com" className="flex items-center hover:text-brand-blue group">
                  <div className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-3 shadow-sm group-hover:border-brand-blue transition-colors">
                     <Mail className="w-5 h-5 text-brand-orange" />
                  </div>
-                 secymc.jhajjar@hry.nic.in
+                 sjsecymcjhajjar@gmail.com
               </a>
            </div>
         </div>

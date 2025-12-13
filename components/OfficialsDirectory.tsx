@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { OFFICIALS, DIGNITARIES } from '../constants';
-import { Search, Phone, Mail, Award, Filter, ArrowLeft } from 'lucide-react';
+import { Search, Phone, Mail, Award, Filter, ArrowLeft, Info, HelpCircle } from 'lucide-react';
 
 const OfficialsDirectory: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -38,6 +38,38 @@ const OfficialsDirectory: React.FC = () => {
       </div>
 
       <div className="container mx-auto max-w-6xl px-4 -mt-8 relative z-20">
+        {/* Communication Protocol Card */}
+        <div className="bg-white rounded-xl shadow-lg border-l-4 border-brand-orange p-6 mb-8">
+            <div className="flex items-start">
+               <div className="bg-brand-orange/10 p-3 rounded-lg mr-4 hidden sm:block">
+                  <Mail className="w-6 h-6 text-brand-orange" />
+               </div>
+               <div>
+                  <h3 className="text-lg font-bold text-slate-800 mb-2 flex items-center">
+                     <span className="sm:hidden mr-2 text-brand-orange"><Mail className="w-5 h-5"/></span>
+                     Centralized Communication Protocol
+                  </h3>
+                  <p className="text-slate-600 text-sm mb-3">
+                     To streamline administrative responses, all employees and branches without individual email addresses utilize the centralized email: <span className="font-mono font-bold text-brand-blue bg-slate-100 px-1 rounded">eo-jhajjar@ulbharyana.gov.in</span>.
+                  </p>
+                  <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                     <p className="text-xs font-bold text-slate-500 uppercase mb-2">How to send an email:</p>
+                     <ul className="text-sm space-y-2 text-slate-700">
+                        <li className="flex items-start">
+                           <span className="bg-slate-200 text-slate-600 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold mr-2 shrink-0">1</span>
+                           Use <strong className="mx-1">eo-jhajjar@ulbharyana.gov.in</strong> as the recipient.
+                        </li>
+                        <li className="flex items-start">
+                           <span className="bg-slate-200 text-slate-600 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold mr-2 shrink-0">2</span>
+                           In the <strong>Subject Line</strong>, clearly mention the department or official.
+                           <br/><span className="text-slate-500 text-xs italic">Example: "Subject: Attention Engineering Wing - Road Repair Sector 4"</span>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+        </div>
+
         {/* Toolbar */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8 flex flex-col md:flex-row gap-4 items-center">
           <div className="relative flex-1 w-full">
@@ -117,12 +149,20 @@ const OfficialsDirectory: React.FC = () => {
                     )}
                     
                     {person.email ? (
-                      <a href={`mailto:${person.email}`} className="flex items-center text-sm text-slate-600 hover:text-brand-green transition-colors">
-                        <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center mr-3 group-hover:bg-brand-green/10">
-                          <Mail className="w-4 h-4" />
-                        </div>
-                        <span className="truncate">{person.email}</span>
-                      </a>
+                      <div className="group/email relative">
+                        <a href={`mailto:${person.email}`} className="flex items-center text-sm text-slate-600 hover:text-brand-green transition-colors">
+                          <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center mr-3 group-hover:bg-brand-green/10">
+                            <Mail className="w-4 h-4" />
+                          </div>
+                          <span className="truncate">{person.email}</span>
+                        </a>
+                        {person.message && (
+                          <div className="mt-2 ml-11 text-[10px] text-brand-orange font-bold bg-brand-orange/5 p-2 rounded border border-brand-orange/20 flex items-start">
+                             <HelpCircle className="w-3 h-3 mr-1 shrink-0 mt-0.5" />
+                             {person.message}
+                          </div>
+                        )}
+                      </div>
                     ) : (
                       <div className="flex items-center text-sm text-slate-400">
                         <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center mr-3">

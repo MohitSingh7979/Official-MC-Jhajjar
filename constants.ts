@@ -424,7 +424,7 @@ export const DIGNITARIES: Official[] = [
   {
     id: 'd4',
     name: 'Dr. Sushil, HCS',
-    designation: "DMC Jhajjar",
+    designation: "District Municipal Commissioner, Jhajjar",
     image: 'https://ui-avatars.com/api/?name=Sushil+HCS&background=11486b&color=fff&size=512&bold=true', 
     category: 'District',
     priority: 4
@@ -454,11 +454,12 @@ export const OFFICIALS: Official[] = [
   { 
     id: 'o3', 
     name: 'Sh. Pankaj Saini', 
-    designation: 'Municipal Engineer', 
+    designation: 'Executive Engineer', 
     image: 'https://ui-avatars.com/api/?name=Pankaj+Saini&background=da6328&color=fff&size=256', 
     phone: "+91 98964 12345", 
-    email: "me-jhajjar@ulbharyana.gov.in",
-    category: 'Municipal'
+    email: "eo-jhajjar@ulbharyana.gov.in",
+    category: 'Municipal',
+    message: "Subject: Attention Engineering Wing"
   },
   { 
     id: 'o4', 
@@ -466,8 +467,9 @@ export const OFFICIALS: Official[] = [
     designation: 'Chief Sanitary Inspector', 
     image: 'https://ui-avatars.com/api/?name=Avinash+CSI&background=ffa425&color=fff&size=256', 
     phone: "+91 98123 45678", 
-    email: "csi-jhajjar@ulbharyana.gov.in",
-    category: 'Municipal'
+    email: "eo-jhajjar@ulbharyana.gov.in",
+    category: 'Municipal',
+    message: "Subject: Attention Sanitation Wing"
   },
 ];
 
