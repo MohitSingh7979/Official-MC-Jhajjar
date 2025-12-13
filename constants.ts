@@ -15,7 +15,7 @@ export const NAV_ITEMS: NavItem[] = [
     subItems: [
       { label: 'History of Jhajjar', href: '#history' },
       { label: 'City Profile', href: '#profile' },
-      { label: 'Officials Directory', href: '#directory' }, // Added Route
+      { label: 'Officials Directory', href: '#directory' },
       { label: 'Organizational Chart', href: '#org' },
     ]
   },
@@ -36,12 +36,25 @@ export const NAV_ITEMS: NavItem[] = [
       { label: 'Property Tax', href: 'https://property.ulbharyana.gov.in/' },
       { label: 'Trade License', href: 'https://online.ulbharyana.gov.in/' },
       { label: 'Fire NOC', href: 'https://fire.ulbharyana.gov.in/' },
-      { label: 'Building Plan', href: 'https://haryanabpas.gov.in/BPASP/' }
+      { label: 'Building Plan', href: 'https://haryanabpas.gov.in/BPASP/' },
+      { label: 'Download Center', href: '#downloads' } // Added
     ]
   },
   { label: 'Tenders', href: '#tenders' },
   { label: 'RTI', href: '#rti' },
   { label: 'Contact', href: '#contact' },
+];
+
+// --- Downloads Data ---
+export const DOWNLOADS = [
+  { id: 'd1', title: 'Property Tax Self-Assessment Form', category: 'Form', size: '1.2 MB', format: 'PDF', description: 'Form for self-assessing property tax for residential units.' },
+  { id: 'd2', title: 'Haryana Municipal Act, 1973', category: 'Act', size: '4.5 MB', format: 'PDF', description: 'The primary legislation governing municipal councils in Haryana.' },
+  { id: 'd3', title: 'Birth Certificate Correction Form', category: 'Form', size: '0.8 MB', format: 'PDF', description: 'Application for correction of name or date in birth record.' },
+  { id: 'd4', title: 'Tender Notice: Road Resurfacing Sector 6', category: 'Tender', size: '2.1 MB', format: 'PDF', description: 'Detailed NIT and BOQ for road construction project.' },
+  { id: 'd5', title: 'Trade License Renewal Application', category: 'Form', size: '1.0 MB', format: 'PDF', description: 'Standard form for annual renewal of trade licenses.' },
+  { id: 'd6', title: 'Solid Waste Management Rules 2016', category: 'Act', size: '3.2 MB', format: 'PDF', description: 'Central government rules regarding waste disposal and management.' },
+  { id: 'd7', title: 'Building Plan Approval Checklist', category: 'Circular', size: '0.5 MB', format: 'PDF', description: 'List of documents required for OBPAS submission.' },
+  { id: 'd8', title: 'Sanitation Survey Report 2023', category: 'Report', size: '5.6 MB', format: 'PDF', description: 'Annual sanitation and hygiene survey results.' },
 ];
 
 // --- Services (Strict Color Palette Applied) ---

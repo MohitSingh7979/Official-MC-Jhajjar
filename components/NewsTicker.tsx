@@ -10,8 +10,8 @@ interface NewsTickerProps {
 const NewsTicker: React.FC<NewsTickerProps> = ({ onNewsClick }) => {
   const [isPaused, setIsPaused] = useState(false);
 
-  // duplicate news to ensure smooth scrolling loop without gaps
-  const displayNews = [...LATEST_NEWS, ...LATEST_NEWS]; 
+  // Duplicate news 4 times to ensure smooth scrolling loop without gaps on large screens
+  const displayNews = [...LATEST_NEWS, ...LATEST_NEWS, ...LATEST_NEWS, ...LATEST_NEWS]; 
 
   return (
     <div className="bg-brand-red text-white relative overflow-hidden flex items-center h-12 group">

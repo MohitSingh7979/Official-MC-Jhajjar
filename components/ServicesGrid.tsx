@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { SERVICES } from '../constants';
-import { ArrowRight, Search, X, ExternalLink, Filter } from 'lucide-react';
+import { ArrowRight, Search, X, ExternalLink } from 'lucide-react';
 import { Service } from '../types';
+import { fuzzySearch } from '../utils/search';
 
 interface ServicesGridProps {
   onServiceSelect: (service: Service) => void;
@@ -17,13 +18,20 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({ onServiceSelect }) => {
     return ['All', ...cats.sort()];
   }, []);
 
-  const filteredServices = SERVICES.filter(service => {
-    const matchesSearch = service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          service.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || service.category === selectedCategory;
+  const filteredServices = useMemo(() => {
+    // First filter by category
+    let result = SERVICES;
+    if (selectedCategory !== 'All') {
+      result = result.filter(s => s.category === selectedCategory);
+    }
     
-    return matchesSearch && matchesCategory;
-  });
+    // Then fuzzy search
+    if (searchTerm) {
+      result = fuzzySearch(searchTerm, result, ['title', 'description']);
+    }
+    
+    return result;
+  }, [searchTerm, selectedCategory]);
 
   return (
     <section id="services" className="py-20 bg-slate-50">
@@ -84,7 +92,7 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({ onServiceSelect }) => {
             {filteredServices.map((service) => (
               <div 
                 key={service.id} 
-                className="bg-white rounded-xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group flex flex-col h-full relative"
+                className="bg-white rounded-xl p-6 md:p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group flex flex-col h-full relative"
               >
                 <div className={`${service.color} w-14 h-14 rounded-lg flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-300 shadow-md shrink-0`}>
                   <service.icon className="w-7 h-7" />

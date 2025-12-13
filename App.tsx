@@ -24,8 +24,9 @@ const DepartmentsSection = lazy(() => import('./components/DepartmentsSection'))
 const InfoSections = lazy(() => import('./components/InfoSections'));
 const ContactSection = lazy(() => import('./components/ContactSection'));
 const OfficialsDirectory = lazy(() => import('./components/OfficialsDirectory'));
+const DownloadCenter = lazy(() => import('./components/DownloadCenter'));
 
-type ViewState = 'home' | 'directory';
+type ViewState = 'home' | 'directory' | 'downloads';
 
 function App() {
   const [view, setView] = useState<ViewState>('home');
@@ -42,6 +43,9 @@ function App() {
       if (hash === '#directory') {
         setView('directory');
         window.scrollTo(0, 0);
+      } else if (hash === '#downloads') {
+        setView('downloads');
+        window.scrollTo(0, 0);
       } else {
         setView('home');
       }
@@ -55,27 +59,20 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  // Smooth scroll behavior for anchor links (only when in home view or if cross-page logic needed)
+  // Smooth scroll behavior for anchor links
   useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const anchor = target.closest('a');
       
       if (anchor && anchor.hash) {
-        // Allow default behavior for directory link since we have hash listener
-        if (anchor.hash === '#directory') return; 
+        if (anchor.hash === '#directory' || anchor.hash === '#downloads') return; 
 
-        // For other internal links, if we are on directory page, let browser handle hash change -> switches to home -> then scroll
-        // This logic is handled by the useEffect above setting 'home' view on other hashes.
-        
-        // Smooth scroll only if we are already on home and targeting a section
-        if (anchor.origin === window.location.origin && anchor.hash !== '#directory' && view === 'home') {
+        if (anchor.origin === window.location.origin && view === 'home') {
            e.preventDefault();
            const element = document.querySelector(anchor.hash);
            if (element) {
              element.scrollIntoView({ behavior: 'smooth' });
-             // Optionally push state to URL without triggering hashchange if we want to avoid re-renders, 
-             // but keeping it simple for now.
              window.history.pushState(null, '', anchor.hash);
            }
         }
@@ -108,7 +105,7 @@ function App() {
         <NewsTicker onNewsClick={setSelectedNews} />
         
         <main className="flex-grow">
-          {view === 'home' ? (
+          {view === 'home' && (
             <>
               <Hero onOpenGrievance={() => setIsGrievanceModalOpen(true)} />
               <Suspense fallback={<SectionLoader />}>
@@ -119,14 +116,21 @@ function App() {
                 <ContactSection />
               </Suspense>
             </>
-          ) : (
+          )}
+          
+          {view === 'directory' && (
             <Suspense fallback={<SectionLoader />}>
               <OfficialsDirectory />
             </Suspense>
           )}
+
+          {view === 'downloads' && (
+            <Suspense fallback={<SectionLoader />}>
+              <DownloadCenter />
+            </Suspense>
+          )}
         </main>
         
-        {/* Added pb-16 to Footer wrapper to account for MobileBottomNav on small screens */}
         <div className="pb-16 lg:pb-0">
           <Footer />
         </div>

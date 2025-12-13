@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Municipal Council Jhajjar | Official Portal</title>
     <meta name="description" content="Official website of Municipal Council Jhajjar, Haryana. Access citizen services, property tax, birth certificates, and latest updates." />
+    <meta name="theme-color" content="#11486b" />
+    <link rel="manifest" href="manifest.json" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -59,6 +61,11 @@
         }
       }
 
+      /* iOS Safe Area Utility */
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+
       /* Accessibility: Reduced Motion */
       @media (prefers-reduced-motion: reduce) {
         *, ::before, ::after {
@@ -89,5 +96,16 @@
   <body class="bg-slate-50 text-brand-blue antialiased">
     <div id="root"></div>
     <script type="module" src="index.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js').then(registration => {
+            console.log('SW registered: ', registration);
+          }).catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
+        });
+      }
+    </script>
   </body>
 </html>

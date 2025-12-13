@@ -51,20 +51,24 @@ const OfficialsDirectory: React.FC = () => {
             />
           </div>
           
-          <div className="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
-            {categories.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setCategory(cat)}
-                className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-all border ${
-                  category === cat 
-                    ? 'bg-brand-blue text-white border-brand-blue' 
-                    : 'bg-slate-50 text-slate-600 border-slate-200 hover:border-brand-orange hover:text-brand-orange'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+          <div className="relative w-full md:w-auto">
+             <div className="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 pr-8 scrollbar-hide">
+              {categories.map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => setCategory(cat)}
+                  className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-all border ${
+                    category === cat 
+                      ? 'bg-brand-blue text-white border-brand-blue' 
+                      : 'bg-slate-50 text-slate-600 border-slate-200 hover:border-brand-orange hover:text-brand-orange'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+            {/* Fade Mask for Scroll Hint */}
+            <div className="absolute right-0 top-0 bottom-2 md:bottom-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none md:hidden"></div>
           </div>
         </div>
 

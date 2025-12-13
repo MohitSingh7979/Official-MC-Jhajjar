@@ -3,6 +3,7 @@ import { Search, X, ArrowRight, FileText, ExternalLink } from 'lucide-react';
 import { SERVICES, LATEST_NEWS, OFFICIALS } from '../constants';
 import useScrollLock from '../hooks/useScrollLock';
 import { Service } from '../types';
+import { fuzzySearch } from '../utils/search';
 
 interface GlobalSearchProps {
   isOpen: boolean;
@@ -28,12 +29,7 @@ const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose, onServiceS
       if (e.key === 'Escape') onClose();
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        // If controlled by parent, this might be redundant but ensures local behavior
-        if (!isOpen) {
-           // Parent handles open, but if we wanted self-contained toggle logic
-        } else {
-           onClose();
-        }
+        if (isOpen) onClose();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -42,20 +38,10 @@ const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose, onServiceS
 
   if (!isOpen) return null;
 
-  // Filter Logic
-  const filteredServices = SERVICES.filter(s => 
-    s.title.toLowerCase().includes(query.toLowerCase()) || 
-    s.description.toLowerCase().includes(query.toLowerCase())
-  ).slice(0, 3);
-
-  const filteredNews = LATEST_NEWS.filter(n => 
-    n.title.toLowerCase().includes(query.toLowerCase())
-  ).slice(0, 3);
-
-  const filteredOfficials = OFFICIALS.filter(o => 
-    o.name.toLowerCase().includes(query.toLowerCase()) || 
-    o.designation.toLowerCase().includes(query.toLowerCase())
-  ).slice(0, 2);
+  // Fuzzy Filter Logic
+  const filteredServices = fuzzySearch(query, SERVICES, ['title', 'description', 'category']).slice(0, 3);
+  const filteredNews = fuzzySearch(query, LATEST_NEWS, ['title', 'category']).slice(0, 3);
+  const filteredOfficials = fuzzySearch(query, OFFICIALS, ['name', 'designation']).slice(0, 2);
 
   const hasResults = filteredServices.length > 0 || filteredNews.length > 0 || filteredOfficials.length > 0;
 
@@ -76,7 +62,7 @@ const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose, onServiceS
             ref={inputRef}
             type="text"
             className="flex-1 text-lg outline-none text-slate-800 placeholder:text-slate-400"
-            placeholder="Search for services, notices, or officials..."
+            placeholder="Search for services (e.g., 'watr', 'tax')..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -105,6 +91,7 @@ const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose, onServiceS
           {query && !hasResults && (
             <div className="p-8 text-center text-slate-500">
               <p>No results found for "{query}"</p>
+              <p className="text-xs text-slate-400 mt-2">Try checking for typos or use simpler keywords.</p>
             </div>
           )}
 
@@ -162,6 +149,24 @@ const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose, onServiceS
                     ))}
                   </div>
                 </div>
+              )}
+
+              {/* Officials Section */}
+              {filteredOfficials.length > 0 && (
+                 <div>
+                    <h4 className="text-xs font-bold text-slate-500 uppercase mb-2 px-2">Officials</h4>
+                    <div className="space-y-1">
+                       {filteredOfficials.map(official => (
+                          <div key={official.id} className="flex items-center p-3 hover:bg-slate-50 rounded-lg">
+                             <img src={official.image} alt="" className="w-8 h-8 rounded-full mr-3 border border-slate-200" />
+                             <div>
+                                <h5 className="font-medium text-slate-800 text-sm">{official.name}</h5>
+                                <p className="text-xs text-slate-500">{official.designation}</p>
+                             </div>
+                          </div>
+                       ))}
+                    </div>
+                 </div>
               )}
             </div>
           )}

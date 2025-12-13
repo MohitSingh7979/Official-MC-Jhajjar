@@ -22,7 +22,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenGrievance }) => {
           height="1080"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue via-brand-blue/90 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue via-brand-blue/95 to-brand-blue/50"></div>
       </div>
 
       <div className="container mx-auto px-4 py-12 relative z-10">
