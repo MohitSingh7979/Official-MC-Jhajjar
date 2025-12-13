@@ -47,15 +47,15 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({ onServiceSelect }) => {
 
         {/* Category Filters */}
         <div className="max-w-4xl mx-auto mb-8">
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="flex flex-wrap justify-center gap-3">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-bold transition-all border min-w-[80px] ${
+                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border min-w-[90px] ${
                   selectedCategory === cat
                     ? 'bg-brand-blue text-white border-brand-blue shadow-md'
-                    : 'bg-white text-slate-500 border-slate-200 hover:border-brand-orange hover:text-brand-orange'
+                    : 'bg-white text-slate-500 border-slate-200 hover:text-brand-orange hover:border-brand-orange'
                 }`}
               >
                 {cat}
