@@ -43,6 +43,7 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchClick, onLoginClick }) => {
                <img 
                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Emblem_of_Haryana.svg/800px-Emblem_of_Haryana.svg.png" 
                  alt="Government of Haryana Emblem" 
+                 referrerPolicy="no-referrer"
                  className="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
                />
                <div className="flex flex-col justify-center h-full border-l-2 border-slate-200 pl-3 sm:pl-4 py-1">

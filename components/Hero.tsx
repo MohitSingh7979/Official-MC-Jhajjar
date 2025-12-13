@@ -20,6 +20,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenGrievance }) => {
           fetchPriority="high"
           width="1920"
           height="1080"
+          referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-brand-blue via-brand-blue/90 to-transparent"></div>
       </div>

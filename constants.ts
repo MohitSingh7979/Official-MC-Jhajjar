@@ -388,7 +388,7 @@ export const DIGNITARIES: Official[] = [
     id: 'd1',
     name: 'Sh. Narendra Modi',
     designation: "Hon'ble Prime Minister",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Narendra_Modi_2021.jpg/800px-Narendra_Modi_2021.jpg',
+    image: 'https://ui-avatars.com/api/?name=Narendra+Modi&background=ff9933&color=fff&size=512&bold=true',
     category: 'National',
     priority: 1
   },
@@ -396,7 +396,7 @@ export const DIGNITARIES: Official[] = [
     id: 'd2',
     name: 'Sh. Nayab Singh Saini',
     designation: "Hon'ble Chief Minister",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Nayab_Singh_Saini_2024.jpg/640px-Nayab_Singh_Saini_2024.jpg',
+    image: 'https://ui-avatars.com/api/?name=Nayab+Singh+Saini&background=478356&color=fff&size=512&bold=true',
     category: 'State',
     priority: 2
   },
@@ -404,7 +404,7 @@ export const DIGNITARIES: Official[] = [
     id: 'd3',
     name: 'Sh. Swapnil Ravindra Patil, IAS',
     designation: "Deputy Commissioner",
-    image: 'https://ui-avatars.com/api/?name=Swapnil+Patil&background=11486b&color=fff&size=256&bold=true', 
+    image: 'https://ui-avatars.com/api/?name=Swapnil+Patil&background=11486b&color=fff&size=512&bold=true', 
     category: 'District',
     priority: 3
   },
@@ -412,7 +412,7 @@ export const DIGNITARIES: Official[] = [
     id: 'd4',
     name: 'Dr. Sushil, HCS',
     designation: "DMC Jhajjar",
-    image: 'https://ui-avatars.com/api/?name=Sushil+HCS&background=11486b&color=fff&size=256&bold=true', 
+    image: 'https://ui-avatars.com/api/?name=Sushil+HCS&background=11486b&color=fff&size=512&bold=true', 
     category: 'District',
     priority: 4
   }

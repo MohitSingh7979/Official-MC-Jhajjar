@@ -1,7 +1,10 @@
-import React from 'react';
-import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
+import React, { useState } from 'react';
+import { MapPin, Phone, Mail, Clock, Send, Map as MapIcon, Expand } from 'lucide-react';
+import MapModal from './MapModal';
 
 const ContactSection: React.FC = () => {
+  const [isMapOpen, setIsMapOpen] = useState(false);
+
   return (
     <section id="contact" className="py-20 bg-white border-t border-slate-100">
       <div className="container mx-auto px-4">
@@ -14,11 +17,11 @@ const ContactSection: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 rounded-2xl overflow-hidden shadow-xl border border-slate-100">
           {/* Map & Info Side */}
-          <div className="bg-brand-blue text-white p-8 md:p-12 relative overflow-hidden">
+          <div className="bg-brand-blue text-white p-8 md:p-12 relative overflow-hidden flex flex-col justify-between">
              {/* Abstract Decor */}
              <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
 
-             <div className="relative z-10 space-y-8">
+             <div className="relative z-10 space-y-8 mb-8">
                <div>
                  <h3 className="text-2xl font-bold mb-6">Municipal Council Jhajjar</h3>
                  <div className="space-y-4 text-slate-300">
@@ -40,22 +43,37 @@ const ContactSection: React.FC = () => {
                    </div>
                  </div>
                </div>
+             </div>
 
-               {/* Embed Placeholder */}
-               <div className="w-full h-96 bg-white/10 rounded-xl overflow-hidden relative group shadow-lg border border-white/10">
-                 <iframe 
-                   src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d259.69409188821277!2d76.64889731970239!3d28.603464772824115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1765350158870!5m2!1sen!2sin" 
-                   width="100%" 
-                   height="100%" 
-                   style={{border:0}} 
-                   loading="lazy" 
-                   referrerPolicy="no-referrer-when-downgrade"
-                   className="opacity-80 group-hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
-                   title="Jhajjar Map"
-                 ></iframe>
-                 <div className="absolute bottom-4 right-4 bg-white text-brand-blue text-xs font-bold px-3 py-1 rounded shadow-lg pointer-events-none">
-                   Locate on Map
-                 </div>
+             {/* Static Map Placeholder */}
+             <div 
+               onClick={() => setIsMapOpen(true)}
+               className="w-full h-64 bg-slate-800 rounded-xl overflow-hidden relative group shadow-lg border border-white/10 cursor-pointer transition-transform hover:scale-[1.02] ring-4 ring-transparent hover:ring-brand-orange/30"
+               role="button"
+               aria-label="Open Interactive Map"
+               tabIndex={0}
+               onKeyDown={(e) => e.key === 'Enter' && setIsMapOpen(true)}
+             >
+               {/* Static Map Image */}
+               <img 
+                 src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=800&auto=format&fit=crop" 
+                 alt="Map Location Preview" 
+                 className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity scale-110 group-hover:scale-100 duration-700"
+               />
+               
+               {/* Interactive Overlay */}
+               <div className="absolute inset-0 flex flex-col items-center justify-center z-10 bg-brand-blue/30 backdrop-blur-[2px] group-hover:backdrop-blur-none transition-all">
+                  <div className="bg-brand-orange text-white p-4 rounded-full shadow-xl mb-3 group-hover:scale-110 transition-transform duration-300 animate-bounce group-hover:animate-none">
+                      <MapIcon className="w-8 h-8" />
+                  </div>
+                  <span className="bg-white text-brand-blue text-xs font-bold px-4 py-2 rounded-full shadow-lg flex items-center group-hover:bg-brand-orange group-hover:text-white transition-colors">
+                      <Expand className="w-3 h-3 mr-2" />
+                      View Interactive Map
+                  </span>
+               </div>
+               
+               <div className="absolute bottom-3 right-3 bg-black/50 text-white text-[10px] px-2 py-1 rounded backdrop-blur-sm">
+                 Google Maps
                </div>
              </div>
           </div>
@@ -70,12 +88,12 @@ const ContactSection: React.FC = () => {
 
             <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert("Message sent!"); }}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" placeholder="First Name" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none placeholder:text-slate-500" required />
-                <input type="text" placeholder="Last Name" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none placeholder:text-slate-500" required />
+                <input type="text" placeholder="First Name" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none placeholder:text-slate-500 bg-white" required />
+                <input type="text" placeholder="Last Name" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none placeholder:text-slate-500 bg-white" required />
               </div>
-              <input type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none placeholder:text-slate-500" required />
-              <input type="text" placeholder="Subject" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none placeholder:text-slate-500" required />
-              <textarea rows={4} placeholder="Your Message" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none resize-none placeholder:text-slate-500" required></textarea>
+              <input type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none placeholder:text-slate-500 bg-white" required />
+              <input type="text" placeholder="Subject" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none placeholder:text-slate-500 bg-white" required />
+              <textarea rows={4} placeholder="Your Message" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none resize-none placeholder:text-slate-500 bg-white" required></textarea>
               
               <button type="submit" className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-3 rounded-lg transition-all shadow-md flex items-center justify-center">
                 Send Message <Send className="w-4 h-4 ml-2" />
@@ -84,6 +102,9 @@ const ContactSection: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Map Modal */}
+      <MapModal isOpen={isMapOpen} onClose={() => setIsMapOpen(false)} />
     </section>
   );
 };

@@ -33,9 +33,10 @@ const InfoSections: React.FC = () => {
               <div className="relative">
                  <div className="absolute -inset-4 bg-brand-orange/20 rounded-2xl rotate-3"></div>
                  <img 
-                   src="https://upload.wikimedia.org/wikipedia/commons/e/e4/District_Administration_Jhajjar.jpg" 
+                   src="https://images.unsplash.com/photo-1577086663218-9642f31b667e?q=80&w=1000&auto=format&fit=crop" 
                    alt="Municipal Council Jhajjar Building" 
-                   className="relative rounded-xl shadow-2xl w-full object-cover h-[400px] border-4 border-white"
+                   className="relative rounded-xl shadow-2xl w-full object-cover h-64 md:h-[400px] border-4 border-white"
+                   referrerPolicy="no-referrer"
                  />
                  <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-lg border-l-4 border-brand-blue">
                     <p className="text-xs font-bold text-slate-500 uppercase mb-1">Established 1954</p>
