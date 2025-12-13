@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, X, ArrowRight, FileText, ExternalLink } from 'lucide-react';
-import { SERVICES, LATEST_NEWS, OFFICIALS } from '../constants';
+import { Search, X, ArrowRight, FileText, ExternalLink, Loader2 } from 'lucide-react';
+import { DataService } from '../services/dataService';
 import useScrollLock from '../hooks/useScrollLock';
-import { Service } from '../types';
+import { Service, NewsItem, Official } from '../types';
 import { fuzzySearch } from '../utils/search';
 
 interface GlobalSearchProps {
@@ -15,13 +15,35 @@ const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose, onServiceS
   useScrollLock(isOpen);
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  
+  // Data State
+  const [services, setServices] = useState<Service[]>([]);
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [officials, setOfficials] = useState<Official[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
-  // Focus input when opened
+  // Focus input when opened and fetch data if not already loaded
   useEffect(() => {
-    if (isOpen && inputRef.current) {
+    if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 100);
+      
+      if (!dataLoaded) {
+        setLoading(true);
+        Promise.all([
+          DataService.getServices(),
+          DataService.getNews(),
+          DataService.getOfficials()
+        ]).then(([s, n, o]) => {
+          setServices(s);
+          setNews(n);
+          setOfficials(o);
+          setDataLoaded(true);
+          setLoading(false);
+        });
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, dataLoaded]);
 
   // Handle Keyboard shortcuts
   useEffect(() => {
@@ -39,9 +61,9 @@ const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose, onServiceS
   if (!isOpen) return null;
 
   // Fuzzy Filter Logic
-  const filteredServices = fuzzySearch(query, SERVICES, ['title', 'description', 'category']).slice(0, 3);
-  const filteredNews = fuzzySearch(query, LATEST_NEWS, ['title', 'category']).slice(0, 3);
-  const filteredOfficials = fuzzySearch(query, OFFICIALS, ['name', 'designation']).slice(0, 2);
+  const filteredServices = fuzzySearch(query, services, ['title', 'description', 'category']).slice(0, 3);
+  const filteredNews = fuzzySearch(query, news, ['title', 'category']).slice(0, 3);
+  const filteredOfficials = fuzzySearch(query, officials, ['name', 'designation']).slice(0, 2);
 
   const hasResults = filteredServices.length > 0 || filteredNews.length > 0 || filteredOfficials.length > 0;
 
@@ -77,7 +99,11 @@ const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose, onServiceS
 
         {/* Results Area */}
         <div className="overflow-y-auto flex-1 p-2">
-          {!query && (
+          {loading ? (
+             <div className="p-8 flex items-center justify-center text-slate-400">
+               <Loader2 className="w-6 h-6 animate-spin mr-2" /> Loading data...
+             </div>
+          ) : !query ? (
             <div className="p-8 text-center text-slate-400">
               <p className="text-sm">Type to search across the portal</p>
               <div className="mt-4 flex flex-wrap justify-center gap-2">
@@ -86,16 +112,12 @@ const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose, onServiceS
                 <span className="text-xs bg-slate-50 border border-slate-100 px-2 py-1 rounded">Tenders</span>
               </div>
             </div>
-          )}
-
-          {query && !hasResults && (
+          ) : !hasResults ? (
             <div className="p-8 text-center text-slate-500">
               <p>No results found for "{query}"</p>
               <p className="text-xs text-slate-400 mt-2">Try checking for typos or use simpler keywords.</p>
             </div>
-          )}
-
-          {query && hasResults && (
+          ) : (
             <div className="space-y-6 p-2">
               {/* Services Section */}
               {filteredServices.length > 0 && (
@@ -112,7 +134,11 @@ const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose, onServiceS
                         className="flex items-center w-full text-left p-3 hover:bg-orange-50 rounded-lg group transition-colors"
                       >
                         <div className={`w-8 h-8 rounded flex items-center justify-center text-white ${service.color} mr-3`}>
-                          <service.icon className="w-4 h-4" />
+                          {/* Use a placeholder circle if icon fails to render, logic is handled inside ServiceGrid usually but we don't have ICON_MAP here easily without importing. 
+                              For search results, we can just show the color block or fetch icon if we pass ICON_MAP. 
+                              Simplifying to color block with initial.
+                           */}
+                          <span className="font-bold text-xs">{service.title.substring(0,1)}</span>
                         </div>
                         <div className="flex-1">
                           <h5 className="font-medium text-slate-800 group-hover:text-orange-700">{service.title}</h5>

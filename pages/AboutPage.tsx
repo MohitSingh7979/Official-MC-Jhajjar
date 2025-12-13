@@ -1,16 +1,18 @@
 import React from 'react';
-import { History, FileText, Scale, Map, Users, Landmark, Trees } from 'lucide-react';
-import TendersTable from './TendersTable';
-import { useLanguage } from '../contexts/LanguageContext';
+import { History, Map, Users, Landmark, Trees } from 'lucide-react';
 
-const InfoSections: React.FC = () => {
-  const { t } = useLanguage();
-
+const AboutPage: React.FC = () => {
   return (
-    <div className="bg-white">
-      {/* About / History Section */}
-      <section id="history" className="py-20 border-b border-slate-100">
-        <div className="container mx-auto px-4">
+    <div className="bg-white min-h-screen animate-fade-in-up">
+      <div className="bg-brand-blue text-white py-12 px-4 relative overflow-hidden">
+        <div className="container mx-auto max-w-6xl relative z-10">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4">About Us</h1>
+          <p className="text-slate-300 max-w-2xl text-lg">Rich heritage and a vision for the future.</p>
+        </div>
+      </div>
+
+      <section className="py-20 border-b border-slate-100">
+        <div className="container mx-auto px-4 max-w-6xl">
           <div className="flex flex-col md:flex-row gap-12 items-center">
             <div className="md:w-1/2 order-2 md:order-1">
               <div className="inline-flex items-center text-brand-orange font-bold tracking-wider uppercase text-sm mb-3">
@@ -34,31 +36,22 @@ const InfoSections: React.FC = () => {
                  <div className="absolute -inset-4 bg-brand-orange/20 rounded-2xl rotate-3"></div>
                  <img 
                    src="https://images.unsplash.com/photo-1577086663218-9642f31b667e?q=80&w=1000&auto=format&fit=crop" 
-                   alt="Historical building of Municipal Council Jhajjar Secretariat" 
+                   alt="Historical building" 
                    className="relative rounded-xl shadow-2xl w-full object-cover h-64 md:h-[400px] border-4 border-white"
-                   referrerPolicy="no-referrer"
                  />
-                 <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-lg border-l-4 border-brand-blue">
-                    <p className="text-xs font-bold text-slate-500 uppercase mb-1">Established 1954</p>
-                    <p className="font-bold text-brand-blue">Municipal Council Secretariat</p>
-                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* City Profile Section */}
-      <section id="profile" className="py-20 bg-slate-50 border-b border-slate-100">
-         <div className="container mx-auto px-4">
+      <section className="py-20 bg-slate-50">
+         <div className="container mx-auto px-4 max-w-6xl">
             <div className="text-center mb-12">
                <div className="inline-flex items-center text-brand-orange font-bold tracking-wider uppercase text-sm mb-2">
                  <Map className="w-4 h-4 mr-2" /> City at a Glance
                </div>
                <h2 className="text-3xl font-bold text-brand-blue">City Profile</h2>
-               <p className="text-slate-500 mt-2 max-w-2xl mx-auto">
-                 Jhajjar is rapidly developing with a focus on sustainable infrastructure and citizen welfare.
-               </p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -93,71 +86,8 @@ const InfoSections: React.FC = () => {
             </div>
          </div>
       </section>
-
-      {/* Tenders Section */}
-      <section id="tenders" className="py-20 bg-white border-b border-slate-100">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center text-brand-blue font-bold tracking-wider uppercase text-sm mb-2">
-              <FileText className="w-4 h-4 mr-2" /> E-Procurement
-            </div>
-            <h2 className="text-3xl font-bold text-brand-blue">{t('tenders_title')}</h2>
-          </div>
-          
-          <TendersTable />
-          
-          <div className="text-center mt-6">
-             <button className="text-brand-blue font-bold hover:underline">{t('view_all')} &rarr;</button>
-          </div>
-        </div>
-      </section>
-
-      {/* RTI Section */}
-      <section id="rti" className="py-20 bg-slate-50">
-        <div className="container mx-auto px-4">
-          <div className="bg-brand-blue rounded-2xl p-8 md:p-12 text-white relative overflow-hidden">
-             <div className="absolute top-0 right-0 p-40 bg-brand-orange/20 rounded-full blur-3xl -mr-20 -mt-20"></div>
-             
-             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-               <div className="md:w-2/3">
-                 <div className="inline-flex items-center text-brand-orange font-bold tracking-wider uppercase text-sm mb-4">
-                   <Scale className="w-4 h-4 mr-2" /> Right to Information
-                 </div>
-                 <h2 className="text-2xl md:text-3xl font-bold mb-4">Transparency is our priority.</h2>
-                 <p className="text-slate-300 mb-6 leading-relaxed">
-                   Under the RTI Act 2005, citizens can request information regarding the activities of the 
-                   Municipal Council. Our Public Information Officers are dedicated to providing timely responses.
-                 </p>
-                 <div className="flex flex-wrap gap-4">
-                   <button className="bg-brand-orange hover:bg-brand-orange/90 px-6 py-3 rounded-lg font-bold transition-colors">
-                     File Online RTI
-                   </button>
-                   <button className="bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-3 rounded-lg font-bold transition-colors">
-                     View Proactive Disclosures
-                   </button>
-                 </div>
-               </div>
-               
-               <div className="md:w-1/3 bg-white/5 p-6 rounded-xl border border-white/10 backdrop-blur-sm">
-                 <h3 className="font-bold text-lg mb-4 border-b border-white/10 pb-2">RTI Officers</h3>
-                 <div className="space-y-4">
-                   <div>
-                     <p className="text-xs text-slate-400 uppercase">First Appellate Authority</p>
-                     <p className="font-medium">Sh. Deputy Commissioner</p>
-                   </div>
-                   <div>
-                     <p className="text-xs text-slate-400 uppercase">SPIO</p>
-                     <p className="font-medium">Sh. Executive Officer</p>
-                     <a href="mailto:eo.mcj@hry.nic.in" className="text-xs text-brand-orange hover:underline">eo.mcj@hry.nic.in</a>
-                   </div>
-                 </div>
-               </div>
-             </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };
 
-export default InfoSections;
+export default AboutPage;

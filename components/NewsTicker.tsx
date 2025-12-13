@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Bell, Pause, Play, ExternalLink } from 'lucide-react';
-import { LATEST_NEWS } from '../constants';
+import React, { useState, useEffect } from 'react';
+import { Bell, Pause, Play, ExternalLink, Loader2 } from 'lucide-react';
+import { DataService } from '../services/dataService';
 import { NewsItem } from '../types';
 
 interface NewsTickerProps {
@@ -9,9 +9,23 @@ interface NewsTickerProps {
 
 const NewsTicker: React.FC<NewsTickerProps> = ({ onNewsClick }) => {
   const [isPaused, setIsPaused] = useState(false);
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Duplicate news 4 times to ensure smooth scrolling loop without gaps on large screens
-  const displayNews = [...LATEST_NEWS, ...LATEST_NEWS, ...LATEST_NEWS, ...LATEST_NEWS]; 
+  useEffect(() => {
+    DataService.getNews().then(items => {
+      setNews(items);
+      setLoading(false);
+    });
+  }, []);
+
+  // Use fetched news or fallback array to prevent crash if empty
+  const tickerItems = news.length > 0 ? news : [{ id: '0', title: 'Welcome to Municipal Council Jhajjar Official Portal', date: '', category: 'Info', link: '#' }];
+  
+  // Duplicate items to create seamless loop
+  const displayNews = [...tickerItems, ...tickerItems, ...tickerItems]; 
+
+  if (loading) return <div className="h-12 bg-brand-red"></div>;
 
   return (
     <div className="bg-brand-red text-white relative overflow-hidden flex items-center h-12 group">
@@ -24,8 +38,7 @@ const NewsTicker: React.FC<NewsTickerProps> = ({ onNewsClick }) => {
       {/* Marquee Area - Using Brand Red for alerts/news */}
       <div className="flex-1 overflow-hidden relative h-full flex items-center bg-brand-red">
         <div 
-          className={`marquee-content whitespace-nowrap py-2 flex items-center ${isPaused ? 'paused' : ''}`}
-          style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
+          className={`whitespace-nowrap py-2 flex items-center inline-block animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused] ${isPaused ? '[animation-play-state:paused]' : ''}`}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
@@ -52,12 +65,6 @@ const NewsTicker: React.FC<NewsTickerProps> = ({ onNewsClick }) => {
       >
         {isPaused ? <Play className="w-4 h-4 fill-current" /> : <Pause className="w-4 h-4 fill-current" />}
       </button>
-
-      <style>{`
-        .paused {
-          animation-play-state: paused !important;
-        }
-      `}</style>
     </div>
   );
 };

@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Municipal Council Jhajjar | Official Portal</title>
-    <meta name="description" content="Official website of Municipal Council Jhajjar, Haryana. Access citizen services, property tax, birth certificates, and latest updates." />
+    <title>Municipal Council Jhajjar | Pay Property Tax, Birth Certificate & Citizen Services</title>
+    <meta name="description" content="Official portal of Municipal Council Jhajjar, Haryana. Access online citizen services like Property Tax payment, Trade License, Fire NOC, Birth/Death Certificates, and lodge grievances securely." />
+    <meta name="keywords" content="MC Jhajjar, Municipal Council Jhajjar, Property Tax Payment, Birth Certificate Haryana, Trade License, Grievance Redressal, ULB Haryana, Jhajjar Civic Services, Online Municipal Services" />
     <meta name="theme-color" content="#11486b" />
     
     <!-- PWA / Mobile Capable -->
@@ -28,81 +29,74 @@
                 orange: '#da6328', // CTAs, Highlights
                 yellow: '#ffa425', // Warnings, Accents
               }
+            },
+            keyframes: {
+              marquee: {
+                '0%': { transform: 'translateX(0)' },
+                '100%': { transform: 'translateX(-50%)' },
+              },
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            },
+            animation: {
+              marquee: 'marquee 60s linear infinite',
+              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
             }
           }
         }
       }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-        overscroll-behavior-y: none; /* Prevent pull-to-refresh on mobile app feel */
-      }
-      .marquee-container {
-        overflow: hidden;
-        white-space: nowrap;
-      }
-      .marquee-content {
-        display: inline-block;
-        /* Seamless loop: width 200% (duplicated content), moves to -50% */
-        animation: marquee 60s linear infinite;
-      }
-      @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-      }
-      
-      /* New Animations */
-      .animate-fade-in-up {
-        animation: fadeInUp 0.8s ease-out forwards;
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      .delay-100 { animation-delay: 0.1s; }
-      .delay-200 { animation-delay: 0.2s; }
-      .delay-300 { animation-delay: 0.3s; }
-
-      @keyframes fadeInUp {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      /* iOS Safe Area Utility */
-      .pb-safe {
-        padding-bottom: env(safe-area-inset-bottom);
-      }
-
-      /* Accessibility: Reduced Motion */
-      @media (prefers-reduced-motion: reduce) {
-        *, ::before, ::after {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.01ms !important;
-          scroll-behavior: auto !important;
-        }
-        .marquee-content {
-          animation: none;
-          transform: translateX(0);
-          white-space: normal;
-          display: block;
-        }
-      }
-    </style>
+    
+    <!-- Schema Markup for Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "GovernmentOrganization",
+      "name": "Municipal Council Jhajjar",
+      "alternateName": "MC Jhajjar",
+      "url": "https://mcjhajjar.gov.in",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Emblem_of_Haryana.svg/800px-Emblem_of_Haryana.svg.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-1251-252002",
+        "contactType": "public services",
+        "email": "sjsecymcjhajjar@gmail.com",
+        "areaServed": "Jhajjar",
+        "availableLanguage": ["en", "hi"]
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Near Bus Stand, Rohtak Road",
+        "addressLocality": "Jhajjar",
+        "addressRegion": "Haryana",
+        "postalCode": "124103",
+        "addressCountry": "IN"
+      },
+      "sameAs": [
+        "https://ulbharyana.gov.in"
+      ]
+    }
+    </script>
   <script type="importmap">
 {
   "imports": {
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.1",
     "react/": "https://aistudiocdn.com/react@^19.2.1/",
     "react": "https://aistudiocdn.com/react@^19.2.1",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0"
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?external=react,react-dom",
+    "@remix-run/router": "https://esm.sh/@remix-run/router@1.15.3",
+    "react-router": "https://esm.sh/react-router@6.22.3?external=react",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.39.7"
   }
 }
 </script>
 </head>
-  <body class="bg-slate-50 text-brand-blue antialiased select-none md:select-auto">
+  <body class="bg-slate-50 text-brand-blue antialiased select-none md:select-auto overscroll-y-none">
     <div id="root"></div>
     <script type="module" src="index.tsx"></script>
     <script>

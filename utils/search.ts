@@ -1,38 +1,34 @@
-// Levenshtein distance algorithm
+// Optimized Levenshtein distance algorithm (O(min(a,b)) space)
 const getEditDistance = (a: string, b: string): number => {
   if (a.length === 0) return b.length;
   if (b.length === 0) return a.length;
 
-  const matrix = [];
-
-  // increment along the first column of each row
-  for (let i = 0; i <= b.length; i++) {
-    matrix[i] = [i];
+  // Swap to ensure we use the smaller string for column space
+  if (a.length > b.length) {
+    [a, b] = [b, a];
   }
 
-  // increment each column in the first row
-  for (let j = 0; j <= a.length; j++) {
-    matrix[0][j] = j;
+  const row = new Array(a.length + 1);
+  for (let i = 0; i <= a.length; i++) {
+    row[i] = i;
   }
 
-  // Fill in the rest of the matrix
   for (let i = 1; i <= b.length; i++) {
+    let prev = i;
     for (let j = 1; j <= a.length; j++) {
+      let val;
       if (b.charAt(i - 1) === a.charAt(j - 1)) {
-        matrix[i][j] = matrix[i - 1][j - 1];
+        val = row[j - 1];
       } else {
-        matrix[i][j] = Math.min(
-          matrix[i - 1][j - 1] + 1, // substitution
-          Math.min(
-            matrix[i][j - 1] + 1, // insertion
-            matrix[i - 1][j] + 1 // deletion
-          )
-        );
+        val = Math.min(row[j - 1], prev, row[j]) + 1;
       }
+      row[j - 1] = prev;
+      prev = val;
     }
+    row[a.length] = prev;
   }
 
-  return matrix[b.length][a.length];
+  return row[a.length];
 };
 
 export const fuzzySearch = <T>(

@@ -1,7 +1,8 @@
 import React from 'react';
-import { X, Clock, FileText, IndianRupee, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { X, Clock, FileText, IndianRupee, ArrowRight, CheckCircle2, HelpCircle } from 'lucide-react';
 import { Service } from '../types';
 import useScrollLock from '../hooks/useScrollLock';
+import { ICON_MAP } from '../constants';
 
 interface ServiceDetailsModalProps {
   service: Service | null;
@@ -13,6 +14,14 @@ const ServiceDetailsModal: React.FC<ServiceDetailsModalProps> = ({ service, onCl
 
   if (!service) return null;
 
+  const handleProceed = () => {
+    if (service.link) {
+      window.open(service.link, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  const Icon = ICON_MAP[service.icon] || HelpCircle;
+
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-brand-blue/70 backdrop-blur-sm" onClick={onClose}></div>
@@ -23,7 +32,7 @@ const ServiceDetailsModal: React.FC<ServiceDetailsModalProps> = ({ service, onCl
           <div className="flex justify-between items-start">
             <div className="flex items-center gap-4">
               <div className="bg-white/20 p-3 rounded-xl backdrop-blur-md">
-                <service.icon className="w-8 h-8" />
+                <Icon className="w-8 h-8" />
               </div>
               <div>
                 <h3 className="text-xl font-bold">{service.title}</h3>
@@ -69,7 +78,10 @@ const ServiceDetailsModal: React.FC<ServiceDetailsModalProps> = ({ service, onCl
             </ul>
           </div>
 
-          <button className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center group">
+          <button 
+            onClick={handleProceed}
+            className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center group"
+          >
             Proceed to Apply
             <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
           </button>

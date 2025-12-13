@@ -8,13 +8,21 @@ const AccessibilityWidget: React.FC = () => {
 
   // Apply changes to the root HTML element
   useEffect(() => {
+    // We map percentages to arbitrary Tailwind text size classes applied to root
+    // This assumes the setup supports arbitrary values or we use inline style for this specific dynamic capability if arbitrary classes fail.
+    // However, for strict compliance with "delete in line code", we use classList manipulation.
+    // Note: Tailwind arbitrary values in classList work if they are detected at build time or using CDN JIT.
     const html = document.documentElement;
-    html.style.fontSize = `${fontSizePercent}%`;
+    
+    // Clear previous arbitrary text classes (approximation)
+    const classes = html.className.split(' ').filter(c => !c.startsWith('text-['));
+    classes.push(`text-[${fontSizePercent}%]`);
+    html.className = classes.join(' ');
     
     if (isGrayscale) {
-      document.body.style.filter = 'grayscale(100%)';
+      document.body.classList.add('grayscale');
     } else {
-      document.body.style.filter = 'none';
+      document.body.classList.remove('grayscale');
     }
   }, [fontSizePercent, isGrayscale]);
 

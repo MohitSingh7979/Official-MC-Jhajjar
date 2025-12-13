@@ -1,86 +1,44 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import TopBar from './components/TopBar';
-import Navbar from './components/Navbar';
-import NewsTicker from './components/NewsTicker';
-import Hero from './components/Hero';
-import Footer from './components/Footer';
-import BackToTop from './components/BackToTop';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import Layout from './components/Layout';
 import GrievanceModal from './components/GrievanceModal';
-import AccessibilityWidget from './components/AccessibilityWidget';
-import MobileBottomNav from './components/MobileBottomNav';
 import GlobalSearch from './components/GlobalSearch';
 import LoginModal from './components/LoginModal';
-import SectionLoader from './components/SectionLoader';
 import ServiceDetailsModal from './components/ServiceDetailsModal';
 import NewsModal from './components/NewsModal';
-import QuickPayWidget from './components/QuickPayWidget';
+import SectionLoader from './components/SectionLoader';
 import { Service, NewsItem } from './types';
 import { LanguageProvider } from './contexts/LanguageContext';
 
-// Lazy load heavy components to improve FCP
-const ServicesGrid = lazy(() => import('./components/ServicesGrid'));
-const Dashboard = lazy(() => import('./components/Dashboard'));
-const DepartmentsSection = lazy(() => import('./components/DepartmentsSection'));
-const InfoSections = lazy(() => import('./components/InfoSections'));
-const ContactSection = lazy(() => import('./components/ContactSection'));
+// Eager load Home to prevent initial flickering/errors
+import HomePage from './pages/HomePage';
+
+// Lazy load other pages
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ServicesPage = lazy(() => import('./pages/ServicesPage'));
+const DepartmentsPage = lazy(() => import('./pages/DepartmentsPage'));
+const TendersPage = lazy(() => import('./pages/TendersPage'));
+const RtiPage = lazy(() => import('./pages/RtiPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
 const OfficialsDirectory = lazy(() => import('./components/OfficialsDirectory'));
 const DownloadCenter = lazy(() => import('./components/DownloadCenter'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 
-type ViewState = 'home' | 'directory' | 'downloads';
+// Scroll to top on route change
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
 
 function App() {
-  const [view, setView] = useState<ViewState>('home');
   const [isGrievanceModalOpen, setIsGrievanceModalOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
-  
-  // Hash Routing Logic
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash;
-      if (hash === '#directory') {
-        setView('directory');
-        window.scrollTo(0, 0);
-      } else if (hash === '#downloads') {
-        setView('downloads');
-        window.scrollTo(0, 0);
-      } else {
-        setView('home');
-      }
-    };
-
-    // Initial check
-    handleHashChange();
-
-    // Listen for hash changes
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
-  // Smooth scroll behavior for anchor links
-  useEffect(() => {
-    const handleAnchorClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const anchor = target.closest('a');
-      
-      if (anchor && anchor.hash) {
-        if (anchor.hash === '#directory' || anchor.hash === '#downloads') return; 
-
-        if (anchor.origin === window.location.origin && view === 'home') {
-           e.preventDefault();
-           const element = document.querySelector(anchor.hash);
-           if (element) {
-             element.scrollIntoView({ behavior: 'smooth' });
-             window.history.pushState(null, '', anchor.hash);
-           }
-        }
-      }
-    };
-    document.addEventListener('click', handleAnchorClick);
-    return () => document.removeEventListener('click', handleAnchorClick);
-  }, [view]);
 
   // Global Keyboard Shortcut for Search
   useEffect(() => {
@@ -96,51 +54,53 @@ function App() {
 
   return (
     <LanguageProvider>
-      <div className="min-h-screen flex flex-col font-sans relative">
-        <TopBar />
-        <Navbar 
-          onSearchClick={() => setIsSearchOpen(true)} 
-          onLoginClick={() => setIsLoginOpen(true)}
-        />
-        <NewsTicker onNewsClick={setSelectedNews} />
-        
-        <main className="flex-grow">
-          {view === 'home' && (
-            <>
-              <Hero onOpenGrievance={() => setIsGrievanceModalOpen(true)} />
-              <Suspense fallback={<SectionLoader />}>
-                <ServicesGrid onServiceSelect={setSelectedService} />
-                <DepartmentsSection />
-                <InfoSections />
-                <Dashboard onNewsSelect={setSelectedNews} />
-                <ContactSection />
-              </Suspense>
-            </>
-          )}
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
+          {/* Admin Route - Independent Layout */}
+          <Route path="/admin" element={
+            <Suspense fallback={<SectionLoader />}>
+               <AdminDashboard />
+            </Suspense>
+          } />
           
-          {view === 'directory' && (
-            <Suspense fallback={<SectionLoader />}>
-              <OfficialsDirectory />
-            </Suspense>
-          )}
-
-          {view === 'downloads' && (
-            <Suspense fallback={<SectionLoader />}>
-              <DownloadCenter />
-            </Suspense>
-          )}
-        </main>
+          {/* Public Layout Route */}
+          <Route element={
+            <Layout 
+              onSearchClick={() => setIsSearchOpen(true)}
+              onLoginClick={() => setIsLoginOpen(true)}
+              onNewsClick={setSelectedNews}
+              onOpenGrievance={() => setIsGrievanceModalOpen(true)}
+            />
+          }>
+            <Route path="/" element={
+              <HomePage 
+                onOpenGrievance={() => setIsGrievanceModalOpen(true)} 
+                onServiceSelect={setSelectedService}
+                onNewsSelect={setSelectedNews}
+              />
+            } />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/services" element={<ServicesPage onServiceSelect={setSelectedService} />} />
+            <Route path="/departments" element={<DepartmentsPage />} />
+            <Route path="/tenders" element={<TendersPage />} />
+            <Route path="/rti" element={<RtiPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/directory" element={<OfficialsDirectory />} />
+            <Route path="/downloads" element={<DownloadCenter />} />
+            
+            {/* Fallback for 404 */}
+            <Route path="*" element={
+              <div className="flex flex-col items-center justify-center py-20 bg-slate-50 min-h-[50vh]">
+                <h2 className="text-4xl font-bold text-brand-blue mb-4">404</h2>
+                <p className="text-slate-500 mb-8">Page not found</p>
+                <a href="/" className="px-6 py-2 bg-brand-orange text-white rounded-lg font-bold hover:bg-brand-orange/90">Go Home</a>
+              </div>
+            } />
+          </Route>
+        </Routes>
         
-        <div className="pb-16 lg:pb-0">
-          <Footer />
-        </div>
-        
-        <BackToTop />
-        <AccessibilityWidget />
-        <QuickPayWidget />
-        <MobileBottomNav onOpenGrievance={() => setIsGrievanceModalOpen(true)} />
-        
-        {/* Modals Layer */}
+        {/* Modals Layer - Rendered outside Routes to persist state */}
         <GrievanceModal 
           isOpen={isGrievanceModalOpen} 
           onClose={() => setIsGrievanceModalOpen(false)} 
@@ -162,7 +122,7 @@ function App() {
           item={selectedNews}
           onClose={() => setSelectedNews(null)}
         />
-      </div>
+      </BrowserRouter>
     </LanguageProvider>
   );
 }

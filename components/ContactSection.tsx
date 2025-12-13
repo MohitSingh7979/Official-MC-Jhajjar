@@ -68,7 +68,7 @@ const ContactSection: React.FC = () => {
                {/* Static Map Image */}
                <img 
                  src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=800&auto=format&fit=crop" 
-                 alt="Map Location Preview" 
+                 alt="Map showing Municipal Council Jhajjar office location near Bus Stand" 
                  className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity scale-110 group-hover:scale-100 duration-700"
                />
                

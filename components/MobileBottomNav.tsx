@@ -5,12 +5,12 @@ const MobileBottomNav: React.FC<{ onOpenGrievance: () => void }> = ({ onOpenGrie
   return (
     <div className="lg:hidden fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-40 pb-safe">
       <div className="flex justify-around items-center h-16">
-        <a href="#" className="flex flex-col items-center justify-center w-full h-full text-slate-500 hover:text-brand-orange active:text-brand-orange/80 transition-colors">
+        <a href="/" className="flex flex-col items-center justify-center w-full h-full text-slate-500 hover:text-brand-orange active:text-brand-orange/80 transition-colors">
           <Home className="w-6 h-6 mb-1" />
           <span className="text-[10px] font-medium uppercase tracking-wide">Home</span>
         </a>
         
-        <a href="#services" className="flex flex-col items-center justify-center w-full h-full text-slate-500 hover:text-brand-orange active:text-brand-orange/80 transition-colors">
+        <a href="/#services" className="flex flex-col items-center justify-center w-full h-full text-slate-500 hover:text-brand-orange active:text-brand-orange/80 transition-colors">
           <Grid className="w-6 h-6 mb-1" />
           <span className="text-[10px] font-medium uppercase tracking-wide">Services</span>
         </a>
@@ -26,7 +26,7 @@ const MobileBottomNav: React.FC<{ onOpenGrievance: () => void }> = ({ onOpenGrie
           </button>
         </div>
 
-        <a href="#contact" className="flex flex-col items-center justify-center w-full h-full text-slate-500 hover:text-brand-orange active:text-brand-orange/80 transition-colors">
+        <a href="/#contact" className="flex flex-col items-center justify-center w-full h-full text-slate-500 hover:text-brand-orange active:text-brand-orange/80 transition-colors">
           <Phone className="w-6 h-6 mb-1" />
           <span className="text-[10px] font-medium uppercase tracking-wide">Contact</span>
         </a>

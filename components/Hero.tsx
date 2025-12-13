@@ -15,7 +15,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenGrievance }) => {
       <div className="absolute inset-0 z-0">
         <img 
           src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1920&auto=format&fit=crop" 
-          alt="Jhajjar City Civic Center" 
+          alt="Panoramic view of Jhajjar City Civic Center and Municipal Council" 
           className="w-full h-full object-cover opacity-20 scale-105"
           fetchPriority="high"
           width="1920"

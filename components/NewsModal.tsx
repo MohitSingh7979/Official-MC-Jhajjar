@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { X, Calendar, Download, Share2, Printer, Loader2, AlertCircle } from 'lucide-react';
+import { X, Calendar, Download, Share2, Printer, Loader2 } from 'lucide-react';
 import { NewsItem } from '../types';
 import useScrollLock from '../hooks/useScrollLock';
 
@@ -11,46 +11,10 @@ interface NewsModalProps {
 const NewsModal: React.FC<NewsModalProps> = ({ item, onClose }) => {
   useScrollLock(!!item);
   const [loading, setLoading] = useState(true);
-  const [fetchedContent, setFetchedContent] = useState<string | null>(null);
 
-  // Simulate API fetch when item changes
   useEffect(() => {
     if (item) {
-      setLoading(true);
-      setFetchedContent(null);
-      
-      // Simulate network delay
-      const timer = setTimeout(() => {
-        // Mock dynamic content generation based on ID
-        const mockContent = `
-          <p class="lead text-lg text-slate-600 mb-4">
-            <strong>Official Communiqué:</strong> This is the verified detailed view for the ${item.category.toLowerCase()} titled "<em>${item.title}</em>".
-          </p>
-          <p>
-            The Municipal Council of Jhajjar aims to keep citizens informed about all developments. 
-            This notification was officially released on <strong>${item.date}</strong> and serves as a primary source of information regarding the subject matter.
-          </p>
-          <div class="bg-blue-50 border-l-4 border-brand-blue p-4 my-4">
-             <p class="font-bold text-brand-blue">Key Highlights:</p>
-             <ul class="list-disc pl-5 mt-2 space-y-1 text-slate-700">
-               <li>Immediate effect from the date of issue.</li>
-               <li>Applicable to all wards under MC Jhajjar jurisdiction.</li>
-               <li>For further queries, please contact the specific department head.</li>
-             </ul>
-          </div>
-          <p>
-            Citizens are requested to adhere to the guidelines mentioned above. Non-compliance may attract penalties as per the Municipal Act, 1973. 
-            We thank you for your cooperation in making Jhajjar a better city.
-          </p>
-          <p class="mt-4 text-sm text-slate-500">
-            Ref No: MCJ/${new Date().getFullYear()}/${item.id.padStart(3, '0')} | Digital Signature Verified
-          </p>
-        `;
-        setFetchedContent(mockContent);
-        setLoading(false);
-      }, 1200); // 1.2s simulated delay
-
-      return () => clearTimeout(timer);
+      setLoading(false);
     }
   }, [item]);
 
@@ -90,11 +54,18 @@ const NewsModal: React.FC<NewsModalProps> = ({ item, onClose }) => {
           {loading ? (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-white z-20">
               <Loader2 className="w-10 h-10 text-brand-orange animate-spin mb-3" />
-              <p className="text-slate-500 font-medium animate-pulse">Fetching official document...</p>
+              <p className="text-slate-500 font-medium animate-pulse">Loading content...</p>
             </div>
           ) : (
             <div className="prose prose-slate max-w-none animate-fade-in-up">
-              {fetchedContent && <div dangerouslySetInnerHTML={{ __html: fetchedContent }} />}
+              {item.content ? (
+                <div dangerouslySetInnerHTML={{ __html: item.content }} />
+              ) : (
+                <>
+                  <p className="text-lg text-slate-600 mb-4 font-medium">{item.summary}</p>
+                  <p className="text-slate-500 italic">No additional details available for this notification.</p>
+                </>
+              )}
             </div>
           )}
         </div>
