@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, User, Shield, ArrowRight, Lock } from 'lucide-react';
+import { X, User, Shield, ArrowRight, Lock, Loader2 } from 'lucide-react';
 import useScrollLock from '../hooks/useScrollLock';
 
 interface LoginModalProps {
@@ -100,8 +100,17 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                 isLoading ? 'opacity-70 cursor-wait' : 'hover:scale-[1.02]'
               } ${activeTab === 'citizen' ? 'bg-brand-orange hover:bg-brand-orange/90' : 'bg-brand-blue hover:bg-brand-blue/90'}`}
             >
-              {isLoading ? 'Verifying...' : 'Login securely'}
-              {!isLoading && <ArrowRight className="w-4 h-4 ml-2" />}
+              {isLoading ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Verifying...
+                </>
+              ) : (
+                <>
+                  Login securely
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </>
+              )}
             </button>
           </form>
 

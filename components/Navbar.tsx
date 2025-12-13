@@ -51,7 +51,6 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchClick, onLoginClick }) => {
                   <h1 className="text-lg sm:text-2xl lg:text-2xl 2xl:text-3xl font-extrabold text-brand-blue leading-none tracking-tight group-hover:text-brand-blue/90 transition-colors">
                     Municipal Council Jhajjar
                   </h1>
-                  <span className="text-[10px] sm:text-xs text-slate-500 font-medium tracking-wide leading-none mt-1">Official Citizen Portal</span>
                </div>
             </a>
 
@@ -138,7 +137,6 @@ const Navbar: React.FC<NavbarProps> = ({ onSearchClick, onLoginClick }) => {
         <div className="p-5 bg-brand-blue text-white flex justify-between items-center shrink-0">
           <div>
             <h2 className="font-bold text-xl leading-tight">MC Jhajjar</h2>
-            <p className="text-xs text-brand-orange opacity-90">Official Portal</p>
           </div>
           <button 
             onClick={() => setIsOpen(false)}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileText, Download, Search, Filter, Archive, CheckCircle2 } from 'lucide-react';
+import { FileText, Download, Search, Filter, Archive, CheckCircle2, Loader2 } from 'lucide-react';
 import { DOWNLOADS } from '../constants';
 import { fuzzySearch } from '../utils/search';
 import { ArrowLeft } from 'lucide-react';
@@ -107,7 +107,7 @@ const DownloadCenter: React.FC = () => {
                  >
                    {downloading === item.id ? (
                       <>
-                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                         Downloading...
                       </>
                    ) : (

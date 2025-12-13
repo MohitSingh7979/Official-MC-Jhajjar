@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, Send, Map as MapIcon, Expand } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, Map as MapIcon, Expand, Loader2 } from 'lucide-react';
 import MapModal from './MapModal';
 
 const ContactSection: React.FC = () => {
   const [isMapOpen, setIsMapOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate API call
+    setTimeout(() => {
+        setIsSubmitting(false);
+        alert("Message sent!");
+    }, 1500);
+  };
 
   return (
     <section id="contact" className="py-20 bg-white border-t border-slate-100">
@@ -86,7 +97,7 @@ const ContactSection: React.FC = () => {
               For other queries, send us a message.
             </p>
 
-            <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert("Message sent!"); }}>
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input type="text" placeholder="First Name" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none placeholder:text-slate-500 bg-white" required />
                 <input type="text" placeholder="Last Name" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none placeholder:text-slate-500 bg-white" required />
@@ -95,8 +106,21 @@ const ContactSection: React.FC = () => {
               <input type="text" placeholder="Subject" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none placeholder:text-slate-500 bg-white" required />
               <textarea rows={4} placeholder="Your Message" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-orange outline-none resize-none placeholder:text-slate-500 bg-white" required></textarea>
               
-              <button type="submit" className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-3 rounded-lg transition-all shadow-md flex items-center justify-center">
-                Send Message <Send className="w-4 h-4 ml-2" />
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-3 rounded-lg transition-all shadow-md flex items-center justify-center disabled:opacity-70 disabled:cursor-wait"
+              >
+                {isSubmitting ? (
+                    <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Sending Message...
+                    </>
+                ) : (
+                    <>
+                        Send Message <Send className="w-4 h-4 ml-2" />
+                    </>
+                )}
               </button>
             </form>
           </div>
