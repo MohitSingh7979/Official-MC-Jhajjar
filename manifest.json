@@ -1,20 +1,54 @@
 {
-  "name": "Municipal Council Jhajjar",
+  "name": "Municipal Council Jhajjar Portal",
   "short_name": "MC Jhajjar",
-  "start_url": ".",
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#11486b",
+  "orientation": "portrait-primary",
+  "description": "Official citizen services portal for Municipal Council Jhajjar. Pay tax, view tenders, lodge grievances, and access municipal records offline.",
+  "categories": ["government", "utilities", "productivity", "finance"],
   "icons": [
     {
-      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Emblem_of_Haryana.svg/800px-Emblem_of_Haryana.svg.png",
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Emblem_of_Haryana.svg/192px-Emblem_of_Haryana.svg.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Emblem_of_Haryana.svg/800px-Emblem_of_Haryana.svg.png",
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Emblem_of_Haryana.svg/512px-Emblem_of_Haryana.svg.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1080&auto=format&fit=crop",
+      "sizes": "1080x1920",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Home Screen - Citizen Services"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1577086663218-9642f31b667e?q=80&w=1920&auto=format&fit=crop",
+      "sizes": "1920x1080",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Desktop Dashboard"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Pay Property Tax",
+      "url": "https://property.ulbharyana.gov.in/",
+      "icons": [{ "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Emblem_of_Haryana.svg/192px-Emblem_of_Haryana.svg.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Lodge Grievance",
+      "url": "/#contact",
+      "icons": [{ "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Emblem_of_Haryana.svg/192px-Emblem_of_Haryana.svg.png", "sizes": "192x192" }]
     }
   ]
 }
